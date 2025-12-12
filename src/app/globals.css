@@ -1,26 +1,39 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* --- NEW COLOR PALETTE (Industrial Dark) --- */
+  --color-thei-yellow: #ffd700; /* Kuning emas yang lebih menyala */
+  --color-thei-dark: #121212; /* Hitam pekat untuk background utama */
+  --color-thei-charcoal: #1e1e1e; /* Abu gelap untuk section pembeda */
+  --color-thei-metal: #2d2d2d; /* Abu metalik untuk card/elemen */
+  --color-thei-light: #e0e0e0; /* Putih tulang untuk teks agar tidak terlalu silau */
+
+  /* Font (Pastikan sudah load font Oswald & Inter/Open Sans di layout) */
+  --font-heading: "Oswald", sans-serif;
+  --font-body: "Inter", sans-serif; /* Ganti ke Inter biar lebih modern */
+
+  /* Custom Shadows untuk Dark Mode */
+  --shadow-neon-yellow: 0 0 15px rgba(255, 215, 0, 0.3);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base Styles */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #000; /* Latar belakang paling luar (desktop) */
+  color: var(--color-thei-light);
+}
+
+/* Utilities */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Texture overlay utility (optional) */
+.bg-texture-grid {
+  background-image: linear-gradient(to right, #ffffff0d 1px, transparent 1px),
+    linear-gradient(to bottom, #ffffff0d 1px, transparent 1px);
+  background-size: 20px 20px;
 }
