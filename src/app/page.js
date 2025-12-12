@@ -1,23 +1,25 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
+import { useRef } from 'react';
 import {
   premiumServices,
   economisServices,
   repairServices,
   rentalServices,
   contractServices,
-} from "../data/data"; // Import data yang tadi kita buat
+} from '../data/data'; // Import data yang tadi kita buat
 
 // Import Components
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
-import PainPoints from "../components/PainPoints";
-import PremiumSection from "../components/PremiumSection";
-import RepairSection from "../components/RepairSection";
-import EconomisSection from "../components/EconomisSection";
-import RentalContractSection from "../components/RentalContractSection";
-import FooterCTA from "../components/FooterCTA";
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero';
+import PainPoints from '../components/PainPoints';
+import PremiumSection from '../components/PremiumSection';
+import RepairSection from '../components/RepairSection';
+import EconomisSection from '../components/EconomisSection';
+import RentalContractSection from '../components/ContractSection';
+import FooterCTA from '../components/FooterCTA';
+import RentalSection from '../components/RentalSection';
+import ContractSection from '../components/ContractSection';
 
 export default function LandingPage() {
   return (
@@ -29,22 +31,18 @@ export default function LandingPage() {
 
         <Hero />
 
-        <PainPoints />
-
         {/* Section: Premium Services (Horizontal Tabs) */}
         <PremiumSection data={premiumServices} />
-
-        {/* Section: Repair Services (Toggle Switch) */}
-        <RepairSection data={repairServices} />
 
         {/* Section: Economis (Grid List) */}
         <EconomisSection data={economisServices} />
 
-        {/* Section: Rental & Contract */}
-        <RentalContractSection
-          rental={rentalServices}
-          contract={contractServices}
-        />
+        {/* Section: Repair Services (Toggle Switch) */}
+        <RepairSection data={repairServices} />
+
+        <RentalSection data={rentalServices} />
+
+        <ContractSection data={contractServices} />
 
         <FooterCTA />
       </div>

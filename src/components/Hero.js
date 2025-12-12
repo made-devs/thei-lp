@@ -1,8 +1,8 @@
-"use client";
-import Image from "next/image";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+'use client';
+import Image from 'next/image';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { useRef } from 'react';
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -10,11 +10,11 @@ export default function Hero() {
   useGSAP(
     () => {
       const tl = gsap.timeline();
-      tl.from(".hero-content", {
+      tl.from('.hero-content', {
         y: 50,
         opacity: 0,
         duration: 1,
-        ease: "power3.out",
+        ease: 'power3.out',
         stagger: 0.2,
       });
     },
@@ -29,13 +29,13 @@ export default function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="https://images.unsplash.com/photo-1535089893014-27949cb06993?q=80&w=1000&auto=format&fit=crop"
+          src="/hero.webp"
           alt="Heavy Equipment"
           fill
           className="object-cover brightness-50"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-black/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#121212]/50 via-transparent to-black/40"></div>
       </div>
 
       {/* Content */}

@@ -1,14 +1,14 @@
-"use client";
-import { useState, useRef } from "react";
-import Image from "next/image";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
+'use client';
+import { useState, useRef } from 'react';
+import Image from 'next/image';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 // --- UTILITY: Format Rupiah ---
 const formatRupiah = (number) => {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(number);
@@ -27,13 +27,21 @@ export default function PremiumSection({ data }) {
   useGSAP(
     () => {
       gsap.fromTo(
-        ".premium-card",
+        '.premium-card',
         { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, ease: "power2.out" }
+        { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, ease: 'power2.out' }
       );
     },
     { dependencies: [activeTab], scope: containerRef }
   );
+
+  // Helper WhatsApp
+  const handleWhatsApp = (title) => {
+    const phone = '6285195886789';
+    const message = `Halo Admin THEI, saya tertarik dengan paket Premium Service ${title}`;
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
 
   return (
     <section ref={containerRef} className="py-14 bg-[#0F0F0F]">
@@ -59,8 +67,8 @@ export default function PremiumSection({ data }) {
               onClick={() => setActiveTab(cat.category)}
               className={`snap-start whitespace-nowrap px-6 py-2.5 rounded text-sm font-bold transition-all border uppercase tracking-wider ${
                 activeTab === cat.category
-                  ? "bg-[#FFD700] text-black border-[#FFD700] shadow-[0_0_15px_rgba(255,215,0,0.4)]"
-                  : "bg-[#1E1E1E] text-gray-400 border-white/10 hover:border-white/30"
+                  ? 'bg-[#FFD700] text-black border-[#FFD700] shadow-[0_0_15px_rgba(255,215,0,0.4)]'
+                  : 'bg-[#1E1E1E] text-gray-400 border-white/10 hover:border-white/30'
               }`}
             >
               {cat.category}
@@ -143,7 +151,7 @@ export default function PremiumSection({ data }) {
                 </div>
 
                 <h3 className="font-[Oswald] text-2xl font-bold text-white uppercase leading-tight mb-3">
-                  {item.title.replace("THEI PREMIUM SERVICE ", "")}
+                  {item.title.replace('THEI PREMIUM SERVICE ', '')}
                 </h3>
 
                 {/* Info Hemat Uang */}
@@ -223,8 +231,11 @@ export default function PremiumSection({ data }) {
                   )}
                 </div>
 
-                <button className="mt-5 w-full bg-[#FFD700] hover:bg-[#FFC107] text-black font-bold py-3 uppercase text-sm tracking-wider rounded-sm transition-transform active:scale-95 shadow-[0_0_20px_rgba(255,215,0,0.2)]">
-                  Ambil Promo Ini
+                <button
+                  onClick={() => handleWhatsApp(item.title)}
+                  className="mt-5 w-full bg-[#FFD700] hover:bg-[#FFC107] text-black font-bold py-3 uppercase text-sm tracking-wider rounded-sm transition-transform active:scale-95 shadow-[0_0_20px_rgba(255,215,0,0.2)]"
+                >
+                  Ambil Paket
                 </button>
               </div>
             </div>

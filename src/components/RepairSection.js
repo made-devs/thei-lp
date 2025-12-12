@@ -1,52 +1,73 @@
-"use client";
-import { useState } from "react";
-import Image from "next/image";
+'use client';
+import { useState } from 'react';
+import Image from 'next/image';
 
 // --- HELPER: Format Rupiah ---
 const formatRupiah = (number) => {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(number);
 };
 
 export default function RepairSection({ data }) {
-  const [type, setType] = useState("hemat"); // 'hemat' or 'super'
+  const [type, setType] = useState('hemat'); // 'hemat' or 'super'
   const [modalImage, setModalImage] = useState(null);
+  const [modalItem, setModalItem] = useState(null);
+
+  // Helper WhatsApp
+  const handleWhatsApp = (title) => {
+    const phone = '6285195886789';
+    const message = `Halo Admin THEI, saya tertarik dengan ${title}`;
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
 
   return (
-    <section className="py-12 bg-[#181818] border-t border-white/5 relative">
+    <section className="py-14 bg-[#0F0F0F] relative border-t border-white/5">
+      {/* Background Glow Effect */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-[#FFD700] opacity-5 blur-[100px] rounded-full pointer-events-none"></div>
+
       {/* HEADER AREA */}
       <div className="px-6 mb-8">
-        <h2 className="font-[Oswald] text-3xl font-bold text-white uppercase">
-          Repair Service
-        </h2>
-
-        {/* --- TOGGLE SWITCH --- */}
-        <div className="mt-4 flex items-center bg-black/40 border border-white/10 rounded p-1 w-full">
-          <button
-            onClick={() => setType("hemat")}
-            className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider transition-all rounded ${
-              type === "hemat"
-                ? "bg-[#FFD700] text-black shadow-lg"
-                : "text-gray-500 hover:text-white"
-            }`}
-          >
-            Paket Hemat
-          </button>
-          <button
-            onClick={() => setType("super")}
-            className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider transition-all rounded ${
-              type === "super"
-                ? "bg-[#FFD700] text-black shadow-lg"
-                : "text-gray-500 hover:text-white"
-            }`}
-          >
-            Paket Super
-          </button>
+        <div className="flex items-center gap-2 mb-2">
+          <div className="h-1 w-8 bg-[#FFD700]"></div>
+          <span className="text-[#FFD700] text-xs font-bold tracking-widest uppercase">
+            Quick Service
+          </span>
         </div>
+        <h2 className="font-[Oswald] text-3xl font-bold text-white uppercase leading-none">
+          Paket <br /> Repair
+        </h2>
+        <p className="text-gray-400 text-xs mt-2 max-w-xs">
+          Penanganan cepat untuk kerusakan unit dengan harga kompetitif.
+        </p>
+      </div>
+
+      {/* --- TOGGLE SWITCH --- */}
+      <div className="px-6 mb-6 flex items-center bg-black/40 border border-white/10 rounded p-1 w-full">
+        <button
+          onClick={() => setType('hemat')}
+          className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider transition-all rounded ${
+            type === 'hemat'
+              ? 'bg-[#FFD700] text-black shadow-lg'
+              : 'text-gray-500 hover:text-white'
+          }`}
+        >
+          Paket Hemat
+        </button>
+        <button
+          onClick={() => setType('super')}
+          className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider transition-all rounded ${
+            type === 'super'
+              ? 'bg-[#FFD700] text-black shadow-lg'
+              : 'text-gray-500 hover:text-white'
+          }`}
+        >
+          Paket Super
+        </button>
       </div>
 
       {/* --- LIST LAYOUT (INDUSTRIAL TICKET) --- */}
@@ -54,12 +75,12 @@ export default function RepairSection({ data }) {
         {data[type].map((item, index) => {
           // 1. Clean Title
           const shortTitle = item.title
-            .replace("Paket Repair ", "")
-            .replace(" Hemat", "")
-            .replace(" Super", "");
+            .replace('Paket Repair ', '')
+            .replace(' Hemat', '')
+            .replace(' Super', '');
 
           // 2. Numbering (01, 02...)
-          const number = (index + 1).toString().padStart(2, "0");
+          const number = (index + 1).toString().padStart(2, '0');
 
           // 3. Logic Hitung Harga (Pastikan di data.js sudah ada priceNormal & pricePromo)
           // Default 0 jaga-jaga kalau data harga belum diinput
@@ -72,11 +93,11 @@ export default function RepairSection({ data }) {
           return (
             <div
               key={item.id}
-              onClick={() => setModalImage(item.image)}
-              className="group relative flex w-full h-[150px] bg-[#252525] rounded overflow-hidden border border-white/5 hover:border-[#FFD700] transition-all cursor-pointer shadow-lg"
+              onClick={() => setModalItem(item)}
+              className="group relative flex w-full h-[150px] bg-[#1A1A1A] rounded overflow-hidden border border-white/10 hover:border-[#FFD700] transition-all cursor-pointer shadow-lg"
             >
-              {/* === BAGIAN KIRI: IMAGE (35%) === */}
-              <div className="relative w-[35%] h-full bg-black shrink-0">
+              {/* === BAGIAN KIRI: IMAGE (45%) === */}
+              <div className="relative w-[45%] h-full bg-black shrink-0">
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -102,7 +123,7 @@ export default function RepairSection({ data }) {
               </div>
 
               {/* === BAGIAN TENGAH: DIVIDER === */}
-              <div className="w-[12px] h-full bg-[#181818] relative flex flex-col justify-between items-center py-2 shrink-0 border-l border-white/5 border-r border-white/5">
+              <div className="w-[12px] h-full bg-[#0F0F0F] relative flex flex-col justify-between items-center py-2 shrink-0 border-l border-white/5 border-r border-white/5">
                 {[...Array(8)].map((_, i) => (
                   <div
                     key={i}
@@ -152,20 +173,43 @@ export default function RepairSection({ data }) {
                     <div className="text-green-500 text-[10px] font-bold mt-1 flex items-center gap-1">
                       <svg
                         className="w-3 h-3"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
                       >
                         <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
                         />
                       </svg>
                       Hemat {formatRupiah(saving)}
                     </div>
                   )}
+                </div>
+
+                <div className="mt-auto pt-2">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleWhatsApp(item.title);
+                    }}
+                    className="w-full bg-[#FFD700] hover:bg-[#FFC107] text-black text-[10px] font-bold uppercase py-1.5 rounded transition-colors flex items-center justify-center gap-2"
+                  >
+                    <span>Ambil Paket</span>
+                    <svg
+                      className="w-3 h-3"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </button>
                 </div>
 
                 {/* Arrow Icon (Top Right absolute) */}
@@ -191,18 +235,18 @@ export default function RepairSection({ data }) {
       </div>
 
       {/* --- MODAL IMAGE --- */}
-      {modalImage && (
+      {modalItem && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-6 animate-in fade-in duration-200"
-          onClick={() => setModalImage(null)}
+          onClick={() => setModalItem(null)}
         >
           <div className="relative w-full max-w-md bg-[#121212] rounded border border-white/10 shadow-2xl flex flex-col max-h-[90vh]">
             <div className="flex justify-between items-center p-4 border-b border-white/10">
               <h3 className="text-white font-[Oswald] text-lg uppercase">
-                Detail Paket
+                Detail Paket Repair
               </h3>
               <button
-                onClick={() => setModalImage(null)}
+                onClick={() => setModalItem(null)}
                 className="text-gray-400 hover:text-white"
               >
                 <svg
@@ -223,7 +267,7 @@ export default function RepairSection({ data }) {
 
             <div className="relative w-full aspect-square bg-black">
               <Image
-                src={modalImage}
+                src={modalItem.image}
                 alt="Detail"
                 fill
                 className="object-contain"
@@ -231,7 +275,10 @@ export default function RepairSection({ data }) {
             </div>
 
             <div className="p-4 border-t border-white/10">
-              <button className="w-full bg-[#FFD700] hover:bg-[#FFC107] text-black font-bold py-3 uppercase rounded shadow-lg flex items-center justify-center gap-2">
+              <button
+                onClick={() => handleWhatsApp(modalItem.title)}
+                className="w-full bg-[#FFD700] hover:bg-[#FFC107] text-black font-bold py-3 uppercase rounded shadow-lg transition-colors flex items-center justify-center gap-2"
+              >
                 <svg
                   className="w-5 h-5"
                   fill="currentColor"
@@ -239,7 +286,7 @@ export default function RepairSection({ data }) {
                 >
                   <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
                 </svg>
-                Konsultasi Via WA
+                Ambil Paket
               </button>
             </div>
           </div>
