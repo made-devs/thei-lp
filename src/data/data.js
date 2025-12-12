@@ -1055,13 +1055,6 @@ export const repairServices = {
       pricePromo: 1400000,
     },
     {
-      id: 'rh-16',
-      title: 'Paket Repair Skid Steel Loader Hemat',
-      image: '/repair-hemat/skid.webp',
-      priceNormal: 2999000,
-      pricePromo: 1499000,
-    },
-    {
       id: 'rh-2',
       title: 'Paket Repair Mini Excavator Hemat',
       image: '/repair-hemat/miniex.webp',
@@ -1074,6 +1067,13 @@ export const repairServices = {
       image: '/repair-hemat/ex.webp',
       priceNormal: 2900000,
       pricePromo: 1450000,
+    },
+    {
+      id: 'rh-16',
+      title: 'Paket Repair Skid Steer Loader Hemat',
+      image: '/repair-hemat/skid.webp',
+      priceNormal: 2999000,
+      pricePromo: 1499000,
     },
     {
       id: 'rh-1',
