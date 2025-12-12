@@ -2,6 +2,16 @@
 import { useState } from "react";
 import Image from "next/image";
 
+// --- HELPER: Format Rupiah ---
+const formatRupiah = (number) => {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(number);
+};
+
 export default function RepairSection({ data }) {
   const [type, setType] = useState("hemat"); // 'hemat' or 'super'
   const [modalImage, setModalImage] = useState(null);
@@ -14,7 +24,7 @@ export default function RepairSection({ data }) {
           Repair Service
         </h2>
 
-        {/* --- TOGGLE SWITCH (Industrial Style) --- */}
+        {/* --- TOGGLE SWITCH --- */}
         <div className="mt-4 flex items-center bg-black/40 border border-white/10 rounded p-1 w-full">
           <button
             onClick={() => setType("hemat")}
@@ -42,14 +52,22 @@ export default function RepairSection({ data }) {
       {/* --- LIST LAYOUT (INDUSTRIAL TICKET) --- */}
       <div className="px-6 flex flex-col gap-3">
         {data[type].map((item, index) => {
-          // Clean Title
+          // 1. Clean Title
           const shortTitle = item.title
             .replace("Paket Repair ", "")
             .replace(" Hemat", "")
             .replace(" Super", "");
 
-          // Menentukan urutan nomor biar keren (01, 02, dst)
+          // 2. Numbering (01, 02...)
           const number = (index + 1).toString().padStart(2, "0");
+
+          // 3. Logic Hitung Harga (Pastikan di data.js sudah ada priceNormal & pricePromo)
+          // Default 0 jaga-jaga kalau data harga belum diinput
+          const normal = item.priceNormal || 0;
+          const promo = item.pricePromo || 0;
+          const saving = normal - promo;
+          const discountPercent =
+            normal > 0 ? Math.round((saving / normal) * 100) : 0;
 
           return (
             <div
@@ -57,57 +75,101 @@ export default function RepairSection({ data }) {
               onClick={() => setModalImage(item.image)}
               className="group relative flex w-full h-[150px] bg-[#252525] rounded overflow-hidden border border-white/5 hover:border-[#FFD700] transition-all cursor-pointer shadow-lg"
             >
-              {/* 1. IMAGE AREA (KIRI) */}
-              <div className="relative w-[35%] h-full bg-black aspect-square">
+              {/* === BAGIAN KIRI: IMAGE (35%) === */}
+              <div className="relative w-[35%] h-full bg-black shrink-0">
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
-                  className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 rounded"
+                  className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
                 />
-                {/* Overlay Kuning Tipis saat hover */}
-                <div className="absolute inset-0 bg-[#FFD700]/0 group-hover:bg-[#FFD700]/10 transition-colors"></div>
+                {/* Visual Hint Zoom (Icon Kaca Pembesar Kecil) */}
+                <div className="absolute bottom-2 right-2 bg-black/60 p-1 rounded text-white backdrop-blur-sm">
+                  <svg
+                    className="w-3 h-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </div>
               </div>
 
-              {/* 2. DECORATION (GARIS SOBEKAN/DIVIDER) */}
-              <div className="w-[10px] h-full bg-[#181818] relative flex flex-col justify-between items-center py-1">
-                {/* Motif gerigi/jahitan */}
-                {[...Array(6)].map((_, i) => (
+              {/* === BAGIAN TENGAH: DIVIDER === */}
+              <div className="w-[12px] h-full bg-[#181818] relative flex flex-col justify-between items-center py-2 shrink-0 border-l border-white/5 border-r border-white/5">
+                {[...Array(8)].map((_, i) => (
                   <div
                     key={i}
-                    className="w-[2px] h-[8px] bg-[#333] rounded-full"
+                    className="w-[3px] h-[6px] bg-[#333] rounded-full"
                   ></div>
                 ))}
               </div>
 
-              {/* 3. CONTENT AREA (KANAN) */}
-              <div className="flex-1 p-3 flex flex-col justify-center relative">
-                {/* Background Number (Watermark) */}
-                <div className="absolute right-2 top-0 text-[40px] font-[Oswald] font-bold text-white/5 pointer-events-none">
+              {/* === BAGIAN KANAN: CONTENT & PRICE (Flex-1) === */}
+              <div className="flex-1 p-3 flex flex-col justify-between relative overflow-hidden">
+                {/* Watermark Number */}
+                <div className="absolute right-1 top-0 text-[50px] font-[Oswald] font-bold text-white/5 pointer-events-none leading-none">
                   {number}
                 </div>
 
-                {/* Title */}
-                <h3 className="font-[Oswald] text-lg font-bold text-white uppercase leading-none pr-6">
-                  {shortTitle}
-                </h3>
-
-                {/* Subtext / Action */}
-                <div className="mt-2 flex items-center gap-2">
-                  <span
-                    className={`text-[9px] font-bold px-1.5 py-0.5 rounded text-black uppercase ${
-                      type === "hemat" ? "bg-gray-400" : "bg-[#FFD700]"
-                    }`}
-                  >
-                    {type}
-                  </span>
-                  <span className="text-[10px] text-[#FFD700] group-hover:underline decoration-[#FFD700]">
-                    Lihat Detail &rarr;
-                  </span>
+                {/* --- BARIS 1: JUDUL --- */}
+                <div>
+                  <h3 className="font-[Oswald] text-lg font-bold text-white uppercase leading-none pr-4 truncate">
+                    {shortTitle}
+                  </h3>
                 </div>
 
-                {/* Icon Panah Pojok Kanan */}
-                <div className="absolute top-3 right-3 text-gray-600 group-hover:text-[#FFD700] transition-colors">
+                {/* --- BARIS 2: HARGA CORET & BADGE DISKON --- */}
+                <div className="flex items-center gap-2 mt-1">
+                  {/* Harga Normal (Coret) */}
+                  <span className="text-gray-500 text-[10px] line-through decoration-red-500">
+                    {formatRupiah(normal)}
+                  </span>
+
+                  {/* Badge Diskon (Merah) */}
+                  {discountPercent > 0 && (
+                    <span className="bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded flex items-center gap-1 shadow-sm">
+                      {discountPercent}% OFF
+                    </span>
+                  )}
+                </div>
+
+                {/* --- BARIS 3: HARGA PROMO & HEMAT --- */}
+                <div className="mt-auto">
+                  {/* Harga Promo (Kuning Besar) */}
+                  <div className="text-[#FFD700] font-[Oswald] text-xl font-bold leading-none">
+                    {formatRupiah(promo)}
+                  </div>
+
+                  {/* Info Hemat (Hijau) */}
+                  {saving > 0 && (
+                    <div className="text-green-500 text-[10px] font-bold mt-1 flex items-center gap-1">
+                      <svg
+                        className="w-3 h-3"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                        />
+                      </svg>
+                      Hemat {formatRupiah(saving)}
+                    </div>
+                  )}
+                </div>
+
+                {/* Arrow Icon (Top Right absolute) */}
+                <div className="absolute top-2 right-2 text-gray-600 group-hover:text-[#FFD700] transition-colors">
                   <svg
                     className="w-4 h-4"
                     fill="none"
@@ -118,7 +180,7 @@ export default function RepairSection({ data }) {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      d="M9 5l7 7-7 7"
                     />
                   </svg>
                 </div>
@@ -135,7 +197,6 @@ export default function RepairSection({ data }) {
           onClick={() => setModalImage(null)}
         >
           <div className="relative w-full max-w-md bg-[#121212] rounded border border-white/10 shadow-2xl flex flex-col max-h-[90vh]">
-            {/* Header Modal */}
             <div className="flex justify-between items-center p-4 border-b border-white/10">
               <h3 className="text-white font-[Oswald] text-lg uppercase">
                 Detail Paket
@@ -160,7 +221,6 @@ export default function RepairSection({ data }) {
               </button>
             </div>
 
-            {/* Image Container (Scrollable if needed) */}
             <div className="relative w-full aspect-square bg-black">
               <Image
                 src={modalImage}
@@ -170,7 +230,6 @@ export default function RepairSection({ data }) {
               />
             </div>
 
-            {/* Footer Modal CTA */}
             <div className="p-4 border-t border-white/10">
               <button className="w-full bg-[#FFD700] hover:bg-[#FFC107] text-black font-bold py-3 uppercase rounded shadow-lg flex items-center justify-center gap-2">
                 <svg
