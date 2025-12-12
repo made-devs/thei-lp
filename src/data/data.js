@@ -100,53 +100,6 @@ export const premiumServices = [
     ],
   },
   {
-    category: 'EXCAVATOR',
-    items: [
-      {
-        id: 'p-ex-1',
-        title: 'EXCAVATOR KOMPLIT',
-        capacity: '20 TON',
-        image: '/premium/ex-komplit.webp',
-        isRecommended: false,
-        priceNormal: 7300000,
-        pricePromo: 3650000,
-        features: [
-          '77 Titik Inspeksi',
-          'Service Mesin & Hydraulic',
-          'Bonus Perawatan Mobil Perusahaan',
-        ],
-      },
-      {
-        id: 'p-ex-2',
-        title: 'EXCAVATOR SUPER KOMPLIT',
-        capacity: '20 TON',
-        image: '/premium/ex-super.webp',
-        isRecommended: false,
-        priceNormal: 7600000,
-        pricePromo: 3800000,
-        features: [
-          '77 Titik Inspeksi',
-          'Service Mesin, Hydraulic, AC',
-          'Bonus Perawatan Mobil Perusahaan',
-        ],
-      },
-      {
-        id: 'p-ex-3',
-        title: 'EXCAVATOR ULTIMATE',
-        capacity: '20 TON',
-        image: '/premium/ex-ultimate.webp',
-        isRecommended: true,
-        priceNormal: 13400000,
-        pricePromo: 6700000,
-        features: [
-          '77 Titik Inspeksi',
-          'Service Mesin, Hydraulic, AC, Cabin',
-          'Bonus Perawatan Mobil Perusahaan',
-        ],
-      },
-    ],
-  },
-  {
     category: 'BOOM LIFT',
     items: [
       {
@@ -188,6 +141,53 @@ export const premiumServices = [
         features: [
           '77 Titik Inspeksi',
           'Service Mesin, Hydraulic, Platform, Tyre',
+          'Bonus Perawatan Mobil Perusahaan',
+        ],
+      },
+    ],
+  },
+  {
+    category: 'EXCAVATOR',
+    items: [
+      {
+        id: 'p-ex-1',
+        title: 'EXCAVATOR KOMPLIT',
+        capacity: '20 TON',
+        image: '/premium/ex-komplit.webp',
+        isRecommended: false,
+        priceNormal: 7300000,
+        pricePromo: 3650000,
+        features: [
+          '77 Titik Inspeksi',
+          'Service Mesin & Hydraulic',
+          'Bonus Perawatan Mobil Perusahaan',
+        ],
+      },
+      {
+        id: 'p-ex-2',
+        title: 'EXCAVATOR SUPER KOMPLIT',
+        capacity: '20 TON',
+        image: '/premium/ex-super.webp',
+        isRecommended: false,
+        priceNormal: 7600000,
+        pricePromo: 3800000,
+        features: [
+          '77 Titik Inspeksi',
+          'Service Mesin, Hydraulic, AC',
+          'Bonus Perawatan Mobil Perusahaan',
+        ],
+      },
+      {
+        id: 'p-ex-3',
+        title: 'EXCAVATOR ULTIMATE',
+        capacity: '20 TON',
+        image: '/premium/ex-ultimate.webp',
+        isRecommended: true,
+        priceNormal: 13400000,
+        pricePromo: 6700000,
+        features: [
+          '77 Titik Inspeksi',
+          'Service Mesin, Hydraulic, AC, Cabin',
           'Bonus Perawatan Mobil Perusahaan',
         ],
       },
@@ -523,6 +523,100 @@ export const premiumServices = [
     ],
   },
   {
+    category: 'TELEHANDLER',
+    items: [
+      {
+        id: 'p-tele-1',
+        title: 'TELEHANDLER KOMPLIT',
+        capacity: '10 TON',
+        image: '/premium/tele-komplit.webp',
+        isRecommended: false,
+        priceNormal: 7600000,
+        pricePromo: 3800000,
+        features: [
+          '77 Titik Inspeksi Electrical',
+          'Service Mesin & Transmisi',
+          'Bonus Perawatan Mobil Perusahaan',
+        ],
+      },
+      {
+        id: 'p-tele-2',
+        title: 'TELEHANDLER SUPER KOMPLIT',
+        capacity: '10 TON',
+        image: '/premium/tele-super.webp',
+        isRecommended: false,
+        priceNormal: 8200000,
+        pricePromo: 4100000,
+        features: [
+          '77 Titik Inspeksi Electrical',
+          'Service Mesin, Transmisi, Hydraulic, Cabin',
+          'Bonus Perawatan Mobil Perusahaan',
+        ],
+      },
+      {
+        id: 'p-tele-3',
+        title: 'TELEHANDLER ULTIMATE',
+        capacity: '10 TON',
+        image: '/premium/tele-ultimate.webp',
+        isRecommended: true,
+        priceNormal: 14300000,
+        pricePromo: 7150000,
+        features: [
+          '77 Titik Inspeksi Electrical',
+          'Service Mesin, Transmisi, Hydraulic, AC, Cabin',
+          'Bonus Perawatan Mobil Perusahaan',
+        ],
+      },
+    ],
+  },
+  {
+    category: 'CONCRETE PUMP',
+    items: [
+      {
+        id: 'p-cpump-1',
+        title: 'CONCRETE PUMP & MIXER KOMPLIT',
+        capacity: '',
+        image: '/premium/cpump-komplit.webp',
+        isRecommended: false,
+        priceNormal: 7700000,
+        pricePromo: 3850000,
+        features: [
+          '77 Titik Inspeksi Electrical',
+          'Service Mesin & Transmisi',
+          'Bonus Perawatan Mobil Perusahaan',
+        ],
+      },
+      {
+        id: 'p-cpump-2',
+        title: 'CONCRETE PUMP & MIXER SUPER KOMPLIT',
+        capacity: '',
+        image: '/premium/cpump-super.webp',
+        isRecommended: false,
+        priceNormal: 8200000,
+        pricePromo: 4100000,
+        features: [
+          '77 Titik Inspeksi Electrical',
+          'Service Mesin, Transmisi, Hydraulic, Cabin',
+          'Bonus Perawatan Mobil Perusahaan',
+        ],
+      },
+      {
+        id: 'p-cpump-3',
+        title: 'CONCRETE PUMP & MIXER ULTIMATE',
+        capacity: '',
+        image: '/premium/cpump-ultimate.webp',
+        isRecommended: true,
+        priceNormal: 12200000,
+        pricePromo: 7100000,
+        features: [
+          '77 Titik Inspeksi Electrical',
+          'Service Mesin, Transmisi, Hydraulic, AC, Cabin',
+          'Bonus Perawatan Mobil Perusahaan',
+        ],
+      },
+    ],
+  },
+  {
     category: 'MOBILE CRANE',
     items: [
       {
@@ -757,106 +851,37 @@ export const premiumServices = [
       },
     ],
   },
-  {
-    category: 'TELEHANDLER',
-    items: [
-      {
-        id: 'p-tele-1',
-        title: 'TELEHANDLER KOMPLIT',
-        capacity: '10 TON',
-        image: '/premium/tele-komplit.webp',
-        isRecommended: false,
-        priceNormal: 7600000,
-        pricePromo: 3800000,
-        features: [
-          '77 Titik Inspeksi Electrical',
-          'Service Mesin & Transmisi',
-          'Bonus Perawatan Mobil Perusahaan',
-        ],
-      },
-      {
-        id: 'p-tele-2',
-        title: 'TELEHANDLER SUPER KOMPLIT',
-        capacity: '10 TON',
-        image: '/premium/tele-super.webp',
-        isRecommended: false,
-        priceNormal: 8200000,
-        pricePromo: 4100000,
-        features: [
-          '77 Titik Inspeksi Electrical',
-          'Service Mesin, Transmisi, Hydraulic, Cabin',
-          'Bonus Perawatan Mobil Perusahaan',
-        ],
-      },
-      {
-        id: 'p-tele-3',
-        title: 'TELEHANDLER ULTIMATE',
-        capacity: '10 TON',
-        image: '/premium/tele-ultimate.webp',
-        isRecommended: true,
-        priceNormal: 14300000,
-        pricePromo: 7150000,
-        features: [
-          '77 Titik Inspeksi Electrical',
-          'Service Mesin, Transmisi, Hydraulic, AC, Cabin',
-          'Bonus Perawatan Mobil Perusahaan',
-        ],
-      },
-    ],
-  },
-  {
-    category: 'CONCRETE PUMP',
-    items: [
-      {
-        id: 'p-cpump-1',
-        title: 'CONCRETE PUMP & MIXER KOMPLIT',
-        capacity: '',
-        image: '/premium/cpump-komplit.webp',
-        isRecommended: false,
-        priceNormal: 7700000,
-        pricePromo: 3850000,
-        features: [
-          '77 Titik Inspeksi Electrical',
-          'Service Mesin & Transmisi',
-          'Bonus Perawatan Mobil Perusahaan',
-        ],
-      },
-      {
-        id: 'p-cpump-2',
-        title: 'CONCRETE PUMP & MIXER SUPER KOMPLIT',
-        capacity: '',
-        image: '/premium/cpump-super.webp',
-        isRecommended: false,
-        priceNormal: 8200000,
-        pricePromo: 4100000,
-        features: [
-          '77 Titik Inspeksi Electrical',
-          'Service Mesin, Transmisi, Hydraulic, Cabin',
-          'Bonus Perawatan Mobil Perusahaan',
-        ],
-      },
-      {
-        id: 'p-cpump-3',
-        title: 'CONCRETE PUMP & MIXER ULTIMATE',
-        capacity: '',
-        image: '/premium/cpump-ultimate.webp',
-        isRecommended: true,
-        priceNormal: 12200000,
-        pricePromo: 7100000,
-        features: [
-          '77 Titik Inspeksi Electrical',
-          'Service Mesin, Transmisi, Hydraulic, AC, Cabin',
-          'Bonus Perawatan Mobil Perusahaan',
-        ],
-      },
-    ],
-  },
 ];
 
 // ==========================================
 // 2. PAKET ECONOMIS/ HEMAT
+// DIURUTKAN DARI MURAH KE MAHAL (berdasarkan pricePromo)
 // ==========================================
 export const economisServices = [
+  {
+    id: 'e-11',
+    title: 'PAKET SERVICE DUMP TRUCK HEMAT',
+    capacity: '40 TON',
+    image: '/hemat/dump.webp',
+    priceNormal: 3000000,
+    pricePromo: 1500000,
+  },
+  {
+    id: 'e-16',
+    title: 'PAKET SERVICE SKID STEER LOADER HEMAT',
+    capacity: '5 TON',
+    image: '/hemat/skid.webp',
+    priceNormal: 3000000,
+    pricePromo: 1500000,
+  },
+  {
+    id: 'e-15',
+    title: 'PAKET SERVICE ROUGH TERRAIN CRANE HEMAT',
+    capacity: '50 TON',
+    image: '/hemat/rough.webp',
+    priceNormal: 3000000,
+    pricePromo: 1500000,
+  },
   {
     id: 'e-13',
     title: 'PAKET SERVICE CRAWLER CRANE HEMAT',
@@ -864,6 +889,22 @@ export const economisServices = [
     image: '/hemat/ccrane.webp',
     priceNormal: 3000000,
     pricePromo: 1500000,
+  },
+  {
+    id: 'e-12',
+    title: 'PAKET SERVICE MOBILE CRANE HEMAT',
+    capacity: '25 TON',
+    image: '/hemat/mcrane.webp',
+    priceNormal: 3100000,
+    pricePromo: 1550000,
+  },
+  {
+    id: 'e-14',
+    title: 'PAKET SERVICE REACH STACKER HEMAT',
+    capacity: '45 TON',
+    image: '/hemat/stacker.webp',
+    priceNormal: 3100000,
+    pricePromo: 1550000,
   },
   {
     id: 'e-18',
@@ -906,44 +947,12 @@ export const economisServices = [
     pricePromo: 2150000,
   },
   {
-    id: 'e-17',
-    title: 'PAKET SERVICE EMPTY CONTAINER HANDLER HEMAT',
-    capacity: '9 TON',
-    image: '/hemat/empty.webp',
-    priceNormal: 4500000,
-    pricePromo: 2250000,
-  },
-  {
-    id: 'e-11',
-    title: 'PAKET SERVICE DUMP TRUCK HEMAT',
-    capacity: '40 TON',
-    image: '/hemat/dump.webp',
-    priceNormal: 3000000,
-    pricePromo: 1500000,
-  },
-  {
-    id: 'e-16',
-    title: 'PAKET SERVICE SKID STEER LOADER HEMAT',
+    id: 'e-19',
+    title: 'PAKET SERVICE TELEHANDLER HEMAT',
     capacity: '5 TON',
-    image: '/hemat/skid.webp',
-    priceNormal: 3000000,
-    pricePromo: 1500000,
-  },
-  {
-    id: 'e-15',
-    title: 'PAKET SERVICE ROUGH TERRAIN CRANE HEMAT',
-    capacity: '50 TON',
-    image: '/hemat/rough.webp',
-    priceNormal: 3000000,
-    pricePromo: 1500000,
-  },
-  {
-    id: 'e-14',
-    title: 'PAKET SERVICE REACH STACKER HEMAT',
-    capacity: '45 TON',
-    image: '/hemat/stacker.webp',
-    priceNormal: 3100000,
-    pricePromo: 1550000,
+    image: '/hemat/telehandler.webp',
+    priceNormal: 3200000,
+    pricePromo: 1600000,
   },
   {
     id: 'e-9',
@@ -954,12 +963,12 @@ export const economisServices = [
     pricePromo: 2200000,
   },
   {
-    id: 'e-12',
-    title: 'PAKET SERVICE MOBILE CRANE HEMAT',
-    capacity: '25 TON',
-    image: '/hemat/mcrane.webp',
-    priceNormal: 3100000,
-    pricePromo: 1550000,
+    id: 'e-10',
+    title: 'PAKET SERVICE VIBRO ROLLER / COMPACTOR HEMAT',
+    capacity: '6-12 TON',
+    image: '/hemat/vibro.webp',
+    priceNormal: 3675000,
+    pricePromo: 2450000,
   },
   {
     id: 'e-7',
@@ -978,20 +987,12 @@ export const economisServices = [
     pricePromo: 2999000,
   },
   {
-    id: 'e-10',
-    title: 'PAKET SERVICE VIBRO ROLLER / COMPACTOR HEMAT',
-    capacity: '6-12 TON',
-    image: '/hemat/vibro.webp',
-    priceNormal: 3675000,
-    pricePromo: 2450000,
-  },
-  {
-    id: 'e-19',
-    title: 'PAKET SERVICE TELEHANDLER HEMAT',
-    capacity: '5 TON',
-    image: '/hemat/telehandler.webp',
-    priceNormal: 3200000,
-    pricePromo: 1600000,
+    id: 'e-17',
+    title: 'PAKET SERVICE EMPTY CONTAINER HANDLER HEMAT',
+    capacity: '9 TON',
+    image: '/hemat/empty.webp',
+    priceNormal: 4500000,
+    pricePromo: 2250000,
   },
 ];
 
@@ -1020,21 +1021,21 @@ export const contractServices = [
   {
     id: 'c-1',
     title: 'CONTRACT SERVICE 3 BULAN',
-    image: '/contract/cs3.webp', // Pakai gambar cs3.jpg
+    image: '/contract/cs3.webp',
     priceNormal: 10900000,
     pricePromo: 5450000,
   },
   {
     id: 'c-2',
     title: 'CONTRACT SERVICE 6 BULAN',
-    image: '/contract/cs6.webp', // Pakai gambar cs6.jpg
+    image: '/contract/cs6.webp',
     priceNormal: 18500000,
     pricePromo: 9250000,
   },
   {
     id: 'c-3',
     title: 'CONTRACT SERVICE 12 BULAN',
-    image: '/contract/cs12.webp', // Pakai gambar cs12.jpg
+    image: '/contract/cs12.webp',
     priceNormal: 33000000,
     pricePromo: 16500000,
   },
@@ -1042,9 +1043,17 @@ export const contractServices = [
 
 // ==========================================
 // 4. PAKET REPAIR (HEMAT VS SUPER)
+// DIURUTKAN DARI MURAH KE MAHAL (berdasarkan pricePromo)
 // ==========================================
 export const repairServices = {
   hemat: [
+    {
+      id: 'rh-16',
+      title: 'Paket Repair Skid Steel Loader Hemat',
+      image: '/repair-hemat/skid.webp',
+      priceNormal: 4800000,
+      pricePromo: 2400000,
+    },
     {
       id: 'rh-1',
       title: 'Paket Repair Forklift Hemat',
@@ -1053,18 +1062,11 @@ export const repairServices = {
       pricePromo: 2500000,
     },
     {
-      id: 'rh-2',
-      title: 'Paket Repair Mini Excavator Hemat',
-      image: '/repair-hemat/miniex.webp',
-      priceNormal: 5200000,
-      pricePromo: 2600000,
-    },
-    {
-      id: 'rh-3',
-      title: 'Paket Repair Excavator Hemat',
-      image: '/repair-hemat/ex.webp',
-      priceNormal: 5400000,
-      pricePromo: 2700000,
+      id: 'rh-10',
+      title: 'Paket Repair Backhoe Loader Hemat',
+      image: '/repair-hemat/backhoe.webp',
+      priceNormal: 5000000,
+      pricePromo: 2500000,
     },
     {
       id: 'rh-4',
@@ -1074,11 +1076,18 @@ export const repairServices = {
       pricePromo: 2500000,
     },
     {
-      id: 'rh-5',
-      title: 'Paket Repair Wheel Loader 4,5m3 Hemat',
-      image: '/repair-hemat/wheel.webp',
-      priceNormal: 5300000,
-      pricePromo: 2650000,
+      id: 'rh-9',
+      title: 'Paket Repair Tandem Roller Hemat',
+      image: '/repair-hemat/tandem.webp',
+      priceNormal: 5100000,
+      pricePromo: 2550000,
+    },
+    {
+      id: 'rh-2',
+      title: 'Paket Repair Mini Excavator Hemat',
+      image: '/repair-hemat/miniex.webp',
+      priceNormal: 5200000,
+      pricePromo: 2600000,
     },
     {
       id: 'rh-6',
@@ -1086,6 +1095,20 @@ export const repairServices = {
       image: '/repair-hemat/vibro.webp',
       priceNormal: 5200000,
       pricePromo: 2600000,
+    },
+    {
+      id: 'rh-5',
+      title: 'Paket Repair Wheel Loader 4,5m3 Hemat',
+      image: '/repair-hemat/wheel.webp',
+      priceNormal: 5300000,
+      pricePromo: 2650000,
+    },
+    {
+      id: 'rh-3',
+      title: 'Paket Repair Excavator Hemat',
+      image: '/repair-hemat/ex.webp',
+      priceNormal: 5400000,
+      pricePromo: 2700000,
     },
     {
       id: 'rh-7',
@@ -1100,20 +1123,6 @@ export const repairServices = {
       image: '/repair-hemat/dozer.webp',
       priceNormal: 5500000,
       pricePromo: 2750000,
-    },
-    {
-      id: 'rh-9',
-      title: 'Paket Repair Tandem Roller Hemat',
-      image: '/repair-hemat/tandem.webp',
-      priceNormal: 5100000,
-      pricePromo: 2550000,
-    },
-    {
-      id: 'rh-10',
-      title: 'Paket Repair Backhoe Loader Hemat',
-      image: '/repair-hemat/backhoe.webp',
-      priceNormal: 5000000,
-      pricePromo: 2500000,
     },
     {
       id: 'rh-11',
@@ -1151,13 +1160,6 @@ export const repairServices = {
       pricePromo: 3000000,
     },
     {
-      id: 'rh-16',
-      title: 'Paket Repair Skid Steer Loader Hemat',
-      image: '/repair-hemat/skid.webp',
-      priceNormal: 4800000,
-      pricePromo: 2400000,
-    },
-    {
       id: 'rh-17',
       title: 'Paket Repair Empty Container Handler Hemat',
       image: '/repair-hemat/empty.webp',
@@ -1167,6 +1169,13 @@ export const repairServices = {
   ],
   super: [
     {
+      id: 'rs-16',
+      title: 'Paket Repair Skid Steel Loader Super',
+      image: '/repair-super/skid.webp',
+      priceNormal: 6800000,
+      pricePromo: 3400000,
+    },
+    {
       id: 'rs-1',
       title: 'Paket Repair Forklift Super',
       image: '/repair-super/forklift.webp',
@@ -1174,18 +1183,11 @@ export const repairServices = {
       pricePromo: 3500000,
     },
     {
-      id: 'rs-2',
-      title: 'Paket Repair Mini Excavator Super',
-      image: '/repair-super/miniex.webp',
-      priceNormal: 7200000,
-      pricePromo: 3600000,
-    },
-    {
-      id: 'rs-3',
-      title: 'Paket Repair Excavator Super',
-      image: '/repair-super/ex.webp',
-      priceNormal: 7400000,
-      pricePromo: 3700000,
+      id: 'rs-10',
+      title: 'Paket Repair Backhoe Loader Super',
+      image: '/repair-super/backhoe.webp',
+      priceNormal: 7000000,
+      pricePromo: 3500000,
     },
     {
       id: 'rs-4',
@@ -1195,11 +1197,18 @@ export const repairServices = {
       pricePromo: 3500000,
     },
     {
-      id: 'rs-5',
-      title: 'Paket Repair Wheel Loader 4,5m3 Super',
-      image: '/repair-super/wheel.webp',
-      priceNormal: 7300000,
-      pricePromo: 3650000,
+      id: 'rs-9',
+      title: 'Paket Repair Tandem Roller Super',
+      image: '/repair-super/tandem.webp',
+      priceNormal: 7100000,
+      pricePromo: 3550000,
+    },
+    {
+      id: 'rs-2',
+      title: 'Paket Repair Mini Excavator Super',
+      image: '/repair-super/miniex.webp',
+      priceNormal: 7200000,
+      pricePromo: 3600000,
     },
     {
       id: 'rs-6',
@@ -1207,6 +1216,20 @@ export const repairServices = {
       image: '/repair-super/vibro.webp',
       priceNormal: 7200000,
       pricePromo: 3600000,
+    },
+    {
+      id: 'rs-5',
+      title: 'Paket Repair Wheel Loader 4,5m3 Super',
+      image: '/repair-super/wheel.webp',
+      priceNormal: 7300000,
+      pricePromo: 3650000,
+    },
+    {
+      id: 'rs-3',
+      title: 'Paket Repair Excavator Super',
+      image: '/repair-super/ex.webp',
+      priceNormal: 7400000,
+      pricePromo: 3700000,
     },
     {
       id: 'rs-7',
@@ -1221,20 +1244,6 @@ export const repairServices = {
       image: '/repair-super/dozer.webp',
       priceNormal: 7500000,
       pricePromo: 3750000,
-    },
-    {
-      id: 'rs-9',
-      title: 'Paket Repair Tandem Roller Super',
-      image: '/repair-super/tandem.webp',
-      priceNormal: 7100000,
-      pricePromo: 3550000,
-    },
-    {
-      id: 'rs-10',
-      title: 'Paket Repair Backhoe Loader Super',
-      image: '/repair-super/backhoe.webp',
-      priceNormal: 7000000,
-      pricePromo: 3500000,
     },
     {
       id: 'rs-11',
@@ -1270,13 +1279,6 @@ export const repairServices = {
       image: '/repair-super/stacker.webp',
       priceNormal: 8000000,
       pricePromo: 4000000,
-    },
-    {
-      id: 'rs-16',
-      title: 'Paket Repair Skid Steer Loader Super',
-      image: '/repair-super/skid.webp',
-      priceNormal: 6800000,
-      pricePromo: 3400000,
     },
     {
       id: 'rs-17',
