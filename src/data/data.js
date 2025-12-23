@@ -859,6 +859,30 @@ export const premiumServices = [
 // ==========================================
 export const economisServices = [
   {
+    id: 'e-1',
+    title: 'PAKET SERVICE FORKLIFT HEMAT',
+    capacity: '1-3 TON',
+    image: '/hemat/forklift.webp',
+    priceNormal: 2800000, // dari image: 2.800 K
+    pricePromo: 1400000, // dari image: 1.400 K
+  },
+  {
+    id: 'e-4',
+    title: 'PAKET SERVICE BOOM LIFT HEMAT',
+    capacity: '10-25 METER',
+    image: '/hemat/boom.webp',
+    priceNormal: 2800000, // dari image: 2.800 K
+    pricePromo: 1400000, // dari image: 1.400 K
+  },
+  {
+    id: 'e-2',
+    title: 'PAKET SERVICE MINI EXCAVATOR HEMAT',
+    capacity: '5-10 TON',
+    image: '/hemat/miniex.webp',
+    priceNormal: 2900000, // dari image: 2.900 K
+    pricePromo: 1450000, // dari image: 1.450 K
+  },
+  {
     id: 'e-11',
     title: 'PAKET SERVICE DUMP TRUCK HEMAT',
     capacity: '40 TON',
@@ -915,36 +939,20 @@ export const economisServices = [
     pricePromo: 1550000,
   },
   {
-    id: 'e-4',
-    title: 'PAKET SERVICE BOOM LIFT HEMAT',
-    capacity: '10-25 METER',
-    image: '/hemat/boom.webp',
-    priceNormal: 2999000,
-    pricePromo: 1999000,
+    id: 'e-9',
+    title: 'PAKET SERVICE MOTOR GRADER HEMAT',
+    capacity: '13 TON',
+    image: '/hemat/grader.webp',
+    priceNormal: 3100000, // dari image: 3.100 K
+    pricePromo: 1550000, // dari image: 1.550 K
   },
   {
-    id: 'e-2',
-    title: 'PAKET SERVICE MINI EXCAVATOR HEMAT',
-    capacity: '5-10 TON',
-    image: '/hemat/miniex.webp',
-    priceNormal: 3075000,
-    pricePromo: 2050000,
-  },
-  {
-    id: 'e-1',
-    title: 'PAKET SERVICE FORKLIFT HEMAT',
-    capacity: '1-3 TON',
-    image: '/hemat/forklift.webp',
-    priceNormal: 3150000,
-    pricePromo: 2100000,
-  },
-  {
-    id: 'e-6',
-    title: 'PAKET SERVICE EXCAVATOR HEMAT',
-    capacity: '20 TON',
-    image: '/hemat/ex.webp',
-    priceNormal: 3225000,
-    pricePromo: 2150000,
+    id: 'e-7',
+    title: 'PAKET SERVICE WIDE DUMP TRUCK HEMAT',
+    capacity: '60 TON',
+    image: '/hemat/wdt.webp',
+    priceNormal: 3100000, // dari image: 3.100 K
+    pricePromo: 1550000, // dari image: 1.550 K
   },
   {
     id: 'e-19',
@@ -955,36 +963,20 @@ export const economisServices = [
     pricePromo: 1600000,
   },
   {
-    id: 'e-9',
-    title: 'PAKET SERVICE MOTOR GRADER HEMAT',
-    capacity: '13 TON',
-    image: '/hemat/grader.webp',
-    priceNormal: 3200000,
-    pricePromo: 2200000,
-  },
-  {
-    id: 'e-10',
-    title: 'PAKET SERVICE VIBRO ROLLER / COMPACTOR HEMAT',
-    capacity: '6-12 TON',
-    image: '/hemat/vibro.webp',
-    priceNormal: 3675000,
-    pricePromo: 2450000,
-  },
-  {
-    id: 'e-7',
-    title: 'PAKET SERVICE WIDE DUMP TRUCK HEMAT',
-    capacity: '60 TON',
-    image: '/hemat/wdt.webp',
-    priceNormal: 3825000,
-    pricePromo: 2550000,
+    id: 'e-6',
+    title: 'PAKET SERVICE EXCAVATOR HEMAT',
+    capacity: '20 TON',
+    image: '/hemat/ex.webp',
+    priceNormal: 3100000, // dari image: 3.100 K
+    pricePromo: 1650000, // dari image: 1.650 K
   },
   {
     id: 'e-8',
     title: 'PAKET SERVICE WHEEL LOADER HEMAT',
     capacity: '4,5 M³',
     image: '/hemat/wheel.webp',
-    priceNormal: 4499000,
-    pricePromo: 2999000,
+    priceNormal: 3300000, // dari image: 3.300 K
+    pricePromo: 1650000, // dari image: 1.650 K
   },
   {
     id: 'e-17',
@@ -993,6 +985,14 @@ export const economisServices = [
     image: '/hemat/empty.webp',
     priceNormal: 4500000,
     pricePromo: 2250000,
+  },
+  {
+    id: 'e-10',
+    title: 'PAKET SERVICE VIBRO ROLLER / COMPACTOR HEMAT',
+    capacity: '6-12 TON',
+    image: '/hemat/vibro.webp',
+    priceNormal: 4900000, // dari image: 4.900 K
+    pricePromo: 2450000, // dari image: 2.450 K
   },
 ];
 
