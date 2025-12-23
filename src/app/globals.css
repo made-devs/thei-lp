@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   /* --- NEW COLOR PALETTE (Industrial Dark) --- */
@@ -9,8 +9,8 @@
   --color-thei-light: #e0e0e0; /* Putih tulang untuk teks agar tidak terlalu silau */
 
   /* Font (Pastikan sudah load font Oswald & Inter/Open Sans di layout) */
-  --font-heading: "Oswald", sans-serif;
-  --font-body: "Inter", sans-serif; /* Ganti ke Inter biar lebih modern */
+  --font-heading: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif; /* Ganti ke Inter biar lebih modern */
 
   /* Custom Shadows untuk Dark Mode */
   --shadow-neon-yellow: 0 0 15px rgba(255, 215, 0, 0.3);
@@ -36,4 +36,29 @@ body {
   background-image: linear-gradient(to right, #ffffff0d 1px, transparent 1px),
     linear-gradient(to bottom, #ffffff0d 1px, transparent 1px);
   background-size: 20px 20px;
+}
+
+.thei-scrollbar {
+  scrollbar-color: #ffd700 rgba(255, 255, 255, 0.12); /* Firefox */
+  scrollbar-width: thin; /* Firefox */
+}
+
+/* Chrome / Edge / Safari */
+.thei-scrollbar::-webkit-scrollbar {
+  height: 10px; /* horizontal scrollbar */
+}
+
+.thei-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+}
+
+.thei-scrollbar::-webkit-scrollbar-thumb {
+  background: #ffd700;
+  border-radius: 999px;
+  border: 2px solid rgba(18, 18, 18, 0.85); /* biar keliatan “inset” */
+}
+
+.thei-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #ffc107;
 }

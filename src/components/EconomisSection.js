@@ -25,7 +25,7 @@ export default function EconomisSection({ data }) {
   };
 
   return (
-    <section className="py-12 bg-[#121212] relative">
+    <section className="py-5 bg-[#121212] relative">
       {/* HEADER */}
       <div className="px-6 mb-8">
         <div className="flex items-center gap-2 mb-2">
@@ -38,7 +38,7 @@ export default function EconomisSection({ data }) {
           Paket Economis
         </h2>
         <p className="text-sm text-gray-400 mt-1">
-          Solusi servis berkualitas dengan harga miring.
+          Solusi service berkualitas dengan harga miring.
         </p>
       </div>
 

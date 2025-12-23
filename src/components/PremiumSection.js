@@ -44,8 +44,8 @@ export default function PremiumSection({ data }) {
   };
 
   return (
-    <section ref={containerRef} className="py-14 bg-[#0F0F0F]">
-      {/* HEADER SECTION */}
+    <section ref={containerRef} className="py-5 bg-[#0F0F0F]">
+      {/* HEADER SECTION (samain style kayak EconomisSection) */}
       <div className="px-6 mb-8">
         <div className="flex items-center gap-2 mb-2">
           <div className="h-1 w-8 bg-[#FFD700]"></div>
@@ -53,14 +53,19 @@ export default function PremiumSection({ data }) {
             Best Seller
           </span>
         </div>
-        <h2 className="font-[Oswald] text-3xl font-bold text-white uppercase leading-none">
-          Premium <br /> Service
+
+        <h2 className="font-[Oswald] text-3xl font-bold text-white uppercase">
+          Paket Premium
         </h2>
+
+        <p className="text-sm text-gray-400 mt-1">
+          Paket service terlengkap untuk performa unit maksimal.
+        </p>
       </div>
 
       {/* TAB NAVIGATION */}
       <div className="sticky top-16 z-30 bg-[#0F0F0F]/95 backdrop-blur py-2 border-b border-white/10 mb-6">
-        <div className="flex gap-3 overflow-x-auto px-6 pb-2 scrollbar-hide snap-x">
+        <div className="flex gap-3 overflow-x-auto px-6 pb-2 snap-x thei-scrollbar">
           {data.map((cat, idx) => (
             <button
               key={idx}

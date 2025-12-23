@@ -1,25 +1,19 @@
 'use client';
 
-import { useRef } from 'react';
 import {
   premiumServices,
   economisServices,
   repairServices,
   rentalServices,
   contractServices,
-} from '../data/data'; // Import data yang tadi kita buat
+} from '../data/data';
 
 // Import Components
-import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import PainPoints from '../components/PainPoints';
-import PremiumSection from '../components/PremiumSection';
-import RepairSection from '../components/RepairSection';
-import EconomisSection from '../components/EconomisSection';
-import RentalContractSection from '../components/ContractSection';
+import USPSection from '../components/USPSection';
+import GallerySection from '../components/GallerySection';
 import FooterCTA from '../components/FooterCTA';
-import RentalSection from '../components/RentalSection';
-import ContractSection from '../components/ContractSection';
+import SectionsTabs from '../components/SectionsTabs';
 
 export default function LandingPage() {
   return (
@@ -27,22 +21,19 @@ export default function LandingPage() {
     <div className="flex min-h-screen w-full justify-center bg-[#050505]">
       {/* Mobile Container Locked */}
       <div className="relative w-full max-w-[480px] bg-[#121212] min-h-screen flex flex-col shadow-2xl overflow-hidden pb-24">
-        <Navbar />
-
         <Hero />
 
-        {/* Section: Premium Services (Horizontal Tabs) */}
-        <PremiumSection data={premiumServices} />
+        <USPSection />
 
-        {/* Section: Economis (Grid List) */}
-        <EconomisSection data={economisServices} />
+        <GallerySection />
 
-        {/* Section: Repair Services (Toggle Switch) */}
-        <RepairSection data={repairServices} />
-
-        <RentalSection data={rentalServices} />
-
-        <ContractSection data={contractServices} />
+        <SectionsTabs
+          premiumServices={premiumServices}
+          economisServices={economisServices}
+          repairServices={repairServices}
+          rentalServices={rentalServices}
+          contractServices={contractServices}
+        />
 
         <FooterCTA />
       </div>

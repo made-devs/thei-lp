@@ -26,11 +26,11 @@ export default function RepairSection({ data }) {
   };
 
   return (
-    <section className="py-14 bg-[#0F0F0F] relative border-t border-white/5">
+    <section className="py-5 bg-[#0F0F0F] relative border-t border-white/5">
       {/* Background Glow Effect */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-[#FFD700] opacity-5 blur-[100px] rounded-full pointer-events-none"></div>
 
-      {/* HEADER AREA */}
+      {/* HEADER (samain style kayak EconomisSection) */}
       <div className="px-6 mb-8">
         <div className="flex items-center gap-2 mb-2">
           <div className="h-1 w-8 bg-[#FFD700]"></div>
@@ -38,10 +38,12 @@ export default function RepairSection({ data }) {
             Quick Service
           </span>
         </div>
-        <h2 className="font-[Oswald] text-3xl font-bold text-white uppercase leading-none">
-          Paket <br /> Repair
+
+        <h2 className="font-[Oswald] text-3xl font-bold text-white uppercase">
+          Paket Repair
         </h2>
-        <p className="text-gray-400 text-xs mt-2 max-w-xs">
+
+        <p className="text-sm text-gray-400 mt-1">
           Penanganan cepat untuk kerusakan unit dengan harga kompetitif.
         </p>
       </div>

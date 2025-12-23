@@ -17,7 +17,7 @@ export default function RentalSection({ data }) {
   };
 
   return (
-    <section className="py-12 bg-[#0A0A0A] relative border-t border-white/5">
+    <section className="py-5 bg-[#0A0A0A] relative border-t border-white/5">
       {/* Background Texture */}
       <div className="absolute inset-0 opacity-5 bg-[repeating-linear-gradient(45deg,#111_0px,#111_10px,#151515_10px,#151515_20px)] pointer-events-none"></div>
 
@@ -31,10 +31,10 @@ export default function RentalSection({ data }) {
             </span>
           </div>
           <h2 className="font-[Oswald] text-3xl font-bold text-white uppercase leading-none">
-            Sewa <br /> Unit Ready
+            Sewa Unit Ready
           </h2>
-          <p className="text-gray-400 text-xs mt-2 max-w-xs">
-            Unit tahun muda, maintenance rutin, operator bersio.
+          <p className="text-gray-400 text-sm mt-2 ">
+            Unit tahun muda, maintenance rutin, layanan mekanik 24 jam.
           </p>
         </div>
 

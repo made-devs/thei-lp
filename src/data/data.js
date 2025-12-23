@@ -867,12 +867,12 @@ export const economisServices = [
     pricePromo: 1400000, // dari image: 1.400 K
   },
   {
-    id: 'e-4',
-    title: 'PAKET SERVICE BOOM LIFT HEMAT',
-    capacity: '10-25 METER',
-    image: '/hemat/boom.webp',
-    priceNormal: 2800000, // dari image: 2.800 K
-    pricePromo: 1400000, // dari image: 1.400 K
+    id: 'e-6',
+    title: 'PAKET SERVICE EXCAVATOR HEMAT',
+    capacity: '20 TON',
+    image: '/hemat/ex.webp',
+    priceNormal: 3100000, // dari image: 3.100 K
+    pricePromo: 1650000, // dari image: 1.650 K
   },
   {
     id: 'e-2',
@@ -881,6 +881,14 @@ export const economisServices = [
     image: '/hemat/miniex.webp',
     priceNormal: 2900000, // dari image: 2.900 K
     pricePromo: 1450000, // dari image: 1.450 K
+  },
+  {
+    id: 'e-4',
+    title: 'PAKET SERVICE BOOM LIFT HEMAT',
+    capacity: '10-25 METER',
+    image: '/hemat/boom.webp',
+    priceNormal: 2800000, // dari image: 2.800 K
+    pricePromo: 1400000, // dari image: 1.400 K
   },
   {
     id: 'e-11',
@@ -963,14 +971,6 @@ export const economisServices = [
     pricePromo: 1600000,
   },
   {
-    id: 'e-6',
-    title: 'PAKET SERVICE EXCAVATOR HEMAT',
-    capacity: '20 TON',
-    image: '/hemat/ex.webp',
-    priceNormal: 3100000, // dari image: 3.100 K
-    pricePromo: 1650000, // dari image: 1.650 K
-  },
-  {
     id: 'e-8',
     title: 'PAKET SERVICE WHEEL LOADER HEMAT',
     capacity: '4,5 M³',
@@ -1048,18 +1048,11 @@ export const contractServices = [
 export const repairServices = {
   hemat: [
     {
-      id: 'rh-4',
-      title: 'Paket Repair Boom Lift Hemat',
-      image: '/repair-hemat/boom.webp',
-      priceNormal: 2800000,
-      pricePromo: 1400000,
-    },
-    {
-      id: 'rh-2',
-      title: 'Paket Repair Mini Excavator Hemat',
-      image: '/repair-hemat/miniex.webp',
-      priceNormal: 2900000,
-      pricePromo: 1450000,
+      id: 'rh-1',
+      title: 'Paket Repair Forklift Hemat',
+      image: '/repair-hemat/forklift.webp',
+      priceNormal: 3100000,
+      pricePromo: 1550000,
     },
     {
       id: 'rh-3',
@@ -1069,18 +1062,25 @@ export const repairServices = {
       pricePromo: 1450000,
     },
     {
+      id: 'rh-2',
+      title: 'Paket Repair Mini Excavator Hemat',
+      image: '/repair-hemat/miniex.webp',
+      priceNormal: 2900000,
+      pricePromo: 1450000,
+    },
+    {
+      id: 'rh-4',
+      title: 'Paket Repair Boom Lift Hemat',
+      image: '/repair-hemat/boom.webp',
+      priceNormal: 2800000,
+      pricePromo: 1400000,
+    },
+    {
       id: 'rh-16',
       title: 'Paket Repair Skid Steer Loader Hemat',
       image: '/repair-hemat/skid.webp',
       priceNormal: 2999000,
       pricePromo: 1499000,
-    },
-    {
-      id: 'rh-1',
-      title: 'Paket Repair Forklift Hemat',
-      image: '/repair-hemat/forklift.webp',
-      priceNormal: 3100000,
-      pricePromo: 1550000,
     },
     {
       id: 'rh-7',
@@ -1169,18 +1169,11 @@ export const repairServices = {
   ],
   super: [
     {
-      id: 'rs-4',
-      title: 'Paket Repair Boom Lift Super',
-      image: '/repair-super/boom.webp',
-      priceNormal: 3300000,
-      pricePromo: 1650000,
-    },
-    {
-      id: 'rs-2',
-      title: 'Paket Repair Mini Excavator Super',
-      image: '/repair-super/miniex.webp',
-      priceNormal: 3300000,
-      pricePromo: 1650000,
+      id: 'rs-1',
+      title: 'Paket Repair Forklift Super',
+      image: '/repair-super/forklift.webp',
+      priceNormal: 3700000,
+      pricePromo: 1850000,
     },
     {
       id: 'rs-3',
@@ -1190,16 +1183,23 @@ export const repairServices = {
       pricePromo: 1750000,
     },
     {
+      id: 'rs-2',
+      title: 'Paket Repair Mini Excavator Super',
+      image: '/repair-super/miniex.webp',
+      priceNormal: 3300000,
+      pricePromo: 1650000,
+    },
+    {
+      id: 'rs-4',
+      title: 'Paket Repair Boom Lift Super',
+      image: '/repair-super/boom.webp',
+      priceNormal: 3300000,
+      pricePromo: 1650000,
+    },
+    {
       id: 'rs-16',
       title: 'Paket Repair Skid Steel Loader Super',
       image: '/repair-super/skid.webp',
-      priceNormal: 3700000,
-      pricePromo: 1850000,
-    },
-    {
-      id: 'rs-1',
-      title: 'Paket Repair Forklift Super',
-      image: '/repair-super/forklift.webp',
       priceNormal: 3700000,
       pricePromo: 1850000,
     },

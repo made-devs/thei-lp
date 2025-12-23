@@ -21,7 +21,7 @@ export default function Hero() {
   );
 
   const handleWhatsApp = () => {
-    const message = `Halo THEI, saya ingin klaim Promo 100JT dan konsultasi servis alat berat. Bisa dibantu?`;
+    const message = `Halo THEI, saya ingin klaim Promo 100JT dan konsultasi service alat berat. Bisa dibantu?`;
     window.open(
       `https://wa.me/6285195886789?text=${encodeURIComponent(message)}`,
       '_blank'
@@ -31,7 +31,7 @@ export default function Hero() {
   return (
     <header
       ref={containerRef}
-      className="relative h-[800px] w-full overflow-hidden flex items-end pb-12"
+      className="relative min-h-[800px] w-full overflow-hidden flex items-end pb-12"
     >
       {/* Background Section */}
       <div className="absolute inset-0">
@@ -46,22 +46,37 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 w-full px-6">
+        {/* Logo Centered */}
+        <div className="hero-content flex justify-center my-6">
+          <Image
+            src="/logo.webp"
+            alt="THEI Logo"
+            width={150}
+            height={150}
+            className="object-contain"
+            priority
+          />
+        </div>
+
         {/* Authority Badge */}
-        <div className="hero-content mb-4 inline-flex items-center gap-2 border border-[#FFD700]/30 bg-[#FFD700]/10 px-3 py-1 rounded-full">
-          <span className="text-[#FFD700] text-[10px] md:text-xs font-bold uppercase tracking-[0.2em]">
-            Pertama & Satu-Satunya di Indonesia
-          </span>
+        <div className="hero-content mb-4 flex justify-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#FFD700] bg-[#FFD700] px-4 py-2 md:px-5 md:py-2.5 shadow-[0_8px_22px_rgba(0,0,0,0.35)]">
+            <span className="text-[#121212] text-xs md:text-sm font-extrabold uppercase tracking-[0.14em] drop-shadow-[0_1px_0_rgba(255,255,255,0.35)]">
+              Pertama & Satu-Satunya di Indonesia
+            </span>
+          </div>
         </div>
 
         {/* Main Headline */}
         <h1 className="hero-content font-[Oswald] text-4xl md:text-6xl font-bold uppercase leading-tight text-white max-w-4xl">
-          Pengerjaan Terlengkap <br />
-          <span className="text-[#FFD700]">Termurah Mulai 1 Jutaan</span>
+          Service Alat Berat Dengan Pengerjaan Terlengkap & <br />
+          <span className="text-[#FFD700]">Termurah Mulai Dari 1 Jutaan</span>
         </h1>
 
-        <p className="hero-content mt-4 text-gray-300 max-w-lg text-sm md:text-base">
-          Solusi pemeliharaan alat berat dengan standar pabrikan. Minimalkan
-          downtime, maksimalkan profit proyek Anda sekarang.
+        <p className="hero-content mt-4 text-gray-200 max-w-lg text-sm md:text-base">
+          Solusi pemeliharaan alat berat dengan tim teknisi profesional dan
+          berpengalaman. Minimalkan downtime, maksimalkan profit proyek Anda
+          sekarang.
         </p>
 
         {/* Promo Cards Grid */}
@@ -73,13 +88,26 @@ export default function Hero() {
             <p className="font-bold text-white uppercase">
               10 Promo Gratis Senilai 100JT
             </p>
+
+            {/* Promo Graphic (below the "10 Promo Gratis" card text) */}
+            <div className="mt-3">
+              <Image
+                src="/promo.webp"
+                alt="Grafis Promo"
+                width={800}
+                height={450}
+                className="w-full h-auto rounded-md border border-white/10"
+                priority={false}
+              />
+            </div>
           </div>
+
           <div className="border-l-2 border-[#FFD700] bg-white/5 p-4 backdrop-blur-sm">
             <p className="text-[10px] uppercase tracking-wider text-[#FFD700]">
               Corporate Bonus
             </p>
             <p className="font-bold text-white uppercase">
-              Bonus Servis Mobil s/d 250JT
+              Bonus Service Mobil s/d 250JT
             </p>
           </div>
         </div>

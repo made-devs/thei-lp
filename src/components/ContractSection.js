@@ -26,7 +26,7 @@ export default function ContractSection({ data }) {
   };
 
   return (
-    <section className="py-14 bg-[#0F0F0F] relative border-t border-white/5">
+    <section className="py-5 bg-[#0F0F0F] relative border-t border-white/5">
       {/* Background Glow Effect */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-[#FFD700] opacity-5 blur-[100px] rounded-full pointer-events-none"></div>
 
