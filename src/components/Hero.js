@@ -9,21 +9,19 @@ export default function Hero() {
 
   useGSAP(
     () => {
-      const tl = gsap.timeline();
-      tl.from('.hero-content', {
-        y: 50,
+      gsap.from('.hero-content', {
+        y: 30,
         opacity: 0,
-        duration: 1,
+        duration: 0.8,
         ease: 'power3.out',
-        stagger: 0.2,
+        stagger: 0.15,
       });
     },
     { scope: containerRef }
   );
 
-  // Helper WhatsApp
   const handleWhatsApp = () => {
-    const message = `Halo THEI, saya ingin berkonsultasi gratis mengenai layanan servis alat berat. Bisa dibantu?`;
+    const message = `Halo THEI, saya ingin klaim Promo 100JT dan konsultasi servis alat berat. Bisa dibantu?`;
     window.open(
       `https://wa.me/6285195886789?text=${encodeURIComponent(message)}`,
       '_blank'
@@ -33,49 +31,81 @@ export default function Hero() {
   return (
     <header
       ref={containerRef}
-      className="relative h-[600px] w-full overflow-hidden"
+      className="relative h-[800px] w-full overflow-hidden flex items-end pb-12"
     >
-      {/* Background Image */}
+      {/* Background Section */}
       <div className="absolute inset-0">
         <Image
           src="/hero.webp"
-          alt="Heavy Equipment"
+          alt="Heavy Equipment Service"
           fill
-          className="object-cover brightness-50"
+          className="object-cover brightness-[0.4]"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#121212]/50 via-transparent to-black/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-black/20"></div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 flex h-full flex-col justify-end p-6 pb-16">
-        <div className="hero-content mb-4 flex items-center gap-2">
-          <div className="h-[2px] w-8 bg-[#FFD700]"></div>
-          <span className="text-[#FFD700] text-sm font-bold uppercase tracking-widest">
-            Heavy Equipment Expert
+      <div className="relative z-10 w-full px-6">
+        {/* Authority Badge */}
+        <div className="hero-content mb-4 inline-flex items-center gap-2 border border-[#FFD700]/30 bg-[#FFD700]/10 px-3 py-1 rounded-full">
+          <span className="text-[#FFD700] text-[10px] md:text-xs font-bold uppercase tracking-[0.2em]">
+            Pertama & Satu-Satunya di Indonesia
           </span>
         </div>
 
-        <h1 className="hero-content font-[Oswald] text-5xl font-bold uppercase leading-[1.1] text-white">
-          Unit Mati,
-          <br />
-          <span className="text-[#FFD700]">Proyek Rugi.</span>
+        {/* Main Headline */}
+        <h1 className="hero-content font-[Oswald] text-4xl md:text-6xl font-bold uppercase leading-tight text-white max-w-4xl">
+          Pengerjaan Terlengkap <br />
+          <span className="text-[#FFD700]">Termurah Mulai 1 Jutaan</span>
         </h1>
 
-        <p className="hero-content mt-4 text-gray-300 max-w-[90%]">
-          Solusi servis alat berat cepat, presisi, dan bergaransi. Minimalkan
-          downtime sekarang.
+        <p className="hero-content mt-4 text-gray-300 max-w-lg text-sm md:text-base">
+          Solusi pemeliharaan alat berat dengan standar pabrikan. Minimalkan
+          downtime, maksimalkan profit proyek Anda sekarang.
         </p>
 
-        <div className="hero-content mt-8">
+        {/* Promo Cards Grid */}
+        <div className="hero-content mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl">
+          <div className="border-l-2 border-[#FFD700] bg-white/5 p-4 backdrop-blur-sm">
+            <p className="text-[10px] uppercase tracking-wider text-[#FFD700]">
+              Exclusive Offer
+            </p>
+            <p className="font-bold text-white uppercase">
+              10 Promo Gratis Senilai 100JT
+            </p>
+          </div>
+          <div className="border-l-2 border-[#FFD700] bg-white/5 p-4 backdrop-blur-sm">
+            <p className="text-[10px] uppercase tracking-wider text-[#FFD700]">
+              Corporate Bonus
+            </p>
+            <p className="font-bold text-white uppercase">
+              Bonus Servis Mobil s/d 250JT
+            </p>
+          </div>
+        </div>
+
+        {/* CTA Button */}
+        <div className="hero-content mt-10">
           <button
             onClick={handleWhatsApp}
-            className="w-full rounded bg-[#FFD700] py-4 text-center text-lg font-bold text-[#121212] uppercase hover:bg-[#FFC107] transition-colors active:scale-95 flex items-center justify-center gap-2 shadow-lg"
+            className="group relative w-full sm:w-auto overflow-hidden rounded bg-[#FFD700] px-10 py-4 text-lg font-black text-[#121212] uppercase transition-all hover:bg-[#FFC107] active:scale-95"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
-            </svg>
-            Konsultasi Gratis
+            <span className="relative z-10 flex items-center justify-center gap-3">
+              Klaim Promo Sekarang
+              <svg
+                className="w-5 h-5 transition-transform group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2.5"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </span>
           </button>
         </div>
       </div>
