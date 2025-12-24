@@ -61,7 +61,7 @@ export default function Hero() {
         {/* Authority Badge */}
         <div className="hero-content mb-4 flex justify-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#FFD700] bg-[#FFD700] px-4 py-2 md:px-5 md:py-2.5 shadow-[0_8px_22px_rgba(0,0,0,0.35)]">
-            <span className="text-thei-dark text-xs md:text-sm font-extrabold uppercase tracking-[0.14em] drop-shadow-[0_1px_0_rgba(255,255,255,0.35)] max-[400px]:text-[10px] max-[400px]:tracking-widest">
+            <span className="text-thei-dark text-xs font-extrabold uppercase tracking-[0.14em] drop-shadow-[0_1px_0_rgba(255,255,255,0.35)] max-[400px]:text-[10px] max-[400px]:tracking-widest">
               Pertama & Satu-Satunya di Indonesia
             </span>
           </div>
@@ -80,7 +80,7 @@ export default function Hero() {
         </p>
 
         {/* Promo Cards Grid */}
-        <div className="hero-content mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl">
+        <div className="hero-content mt-8 grid grid-cols-1 gap-3 max-w-2xl">
           <div className="border-l-2 border-[#FFD700] bg-white/5 p-4 backdrop-blur-sm">
             <p className="text-[10px] uppercase tracking-wider text-[#FFD700]">
               Exclusive Offer
@@ -116,7 +116,7 @@ export default function Hero() {
         <div className="hero-content mt-10">
           <button
             onClick={handleWhatsApp}
-            className="group relative w-full sm:w-auto overflow-hidden rounded bg-[#FFD700] px-10 py-4 text-lg font-black text-thei-dark uppercase transition-all hover:bg-[#FFC107] active:scale-95 max-[400px]:px-6 max-[400px]:py-3 max-[400px]:text-base"
+            className="group relative w-full  overflow-hidden rounded bg-[#FFD700] px-10 py-4 text-lg font-black text-thei-dark uppercase transition-all hover:bg-[#FFC107] active:scale-95 max-[400px]:px-6 max-[400px]:py-3 max-[400px]:text-base"
           >
             <span className="relative z-10 flex items-center justify-center gap-3 max-[400px]:gap-2">
               Klaim Promo Sekarang

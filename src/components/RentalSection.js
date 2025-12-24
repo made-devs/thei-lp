@@ -1,13 +1,17 @@
 'use client';
-import { useState } from 'react'; // Import useState
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 
 export default function RentalSection({ data }) {
-  // State untuk Modal Pop-up
-  const [modalImage, setModalImage] = useState(null);
   const [modalItem, setModalItem] = useState(null);
 
-  // Fungsi Direct ke WA
+  // Drag Refs
+  const scrollerRef = useRef(null);
+  const isDown = useRef(false);
+  const startX = useRef(0);
+  const scrollLeftPos = useRef(0);
+  const dragDistance = useRef(0);
+
   const handleWA = (unitName) => {
     const message = `Halo THEI, saya tertarik dengan Paket Rental unit ${unitName}. Boleh minta info harga dan ketersediaan?`;
     window.open(
@@ -16,13 +20,46 @@ export default function RentalSection({ data }) {
     );
   };
 
+  // Drag Handlers
+  const onMouseDown = (e) => {
+    isDown.current = true;
+    dragDistance.current = 0;
+    scrollerRef.current.classList.add('active-dragging');
+    startX.current = e.pageX - scrollerRef.current.offsetLeft;
+    scrollLeftPos.current = scrollerRef.current.scrollLeft;
+  };
+
+  const onMouseLeave = () => {
+    isDown.current = false;
+    scrollerRef.current.classList.remove('active-dragging');
+  };
+
+  const onMouseUp = () => {
+    isDown.current = false;
+    scrollerRef.current.classList.remove('active-dragging');
+  };
+
+  const onMouseMove = (e) => {
+    if (!isDown.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollerRef.current.offsetLeft;
+    const walk = (x - startX.current) * 2; // Speed multiplier
+    scrollerRef.current.scrollLeft = scrollLeftPos.current - walk;
+    dragDistance.current = Math.abs(walk);
+  };
+
+  const handleCardClick = (item) => {
+    // Hanya buka modal jika bukan sedang drag
+    if (dragDistance.current < 5) {
+      setModalItem(item);
+    }
+  };
+
   return (
     <section className="py-5 bg-[#0A0A0A] relative border-t border-white/5">
-      {/* Background Texture */}
       <div className="absolute inset-0 opacity-5 bg-[repeating-linear-gradient(45deg,#111_0px,#111_10px,#151515_10px,#151515_20px)] pointer-events-none"></div>
 
       <div className="relative z-10">
-        {/* HEADER */}
         <div className="px-6 mb-8">
           <div className="flex items-center gap-2 mb-2">
             <div className="h-1 w-8 bg-[#FFD700]"></div>
@@ -38,13 +75,15 @@ export default function RentalSection({ data }) {
           </p>
         </div>
 
-        {/* --- CARD CAROUSEL --- */}
-        <div className="flex gap-4 overflow-x-auto px-6 pb-8 scrollbar-hide snap-x">
+        <div
+          ref={scrollerRef}
+          onMouseDown={onMouseDown}
+          onMouseLeave={onMouseLeave}
+          onMouseUp={onMouseUp}
+          onMouseMove={onMouseMove}
+          className="flex gap-4 overflow-x-auto px-6 pb-8 thei-scrollbar snap-x md:snap-none cursor-grab active:cursor-grabbing select-none"
+        >
           {data.map((item) => {
-            // Ambil Kapasitas dari judul (misal: "3 TON") untuk Badge
-            const tonase = item.title.match(/(\d+)\s*TON/i)?.[0] || 'UNIT';
-
-            // List Benefit Default
             const features = item.benefits || [
               'Unit Replacement Guarantee',
               'Safety Kit (APAR, APD, Helm)',
@@ -58,12 +97,10 @@ export default function RentalSection({ data }) {
                 key={item.id}
                 className="group relative w-[300px] shrink-0 snap-center bg-[#1A1A1A] rounded-xl overflow-hidden border border-white/10 hover:border-[#FFD700] transition-all shadow-lg flex flex-col"
               >
-                {/* 1. IMAGE AREA (CLICKABLE) */}
                 <div
                   className="relative aspect-square w-full bg-[#121212] cursor-pointer"
-                  onClick={() => setModalItem(item)} // Trigger Modal dengan full item
+                  onClick={() => handleCardClick(item)}
                 >
-                  {/* Badge Status (Kanan Atas) */}
                   <div className="absolute top-3 right-3 z-20 pointer-events-none">
                     <div className="bg-black/60 backdrop-blur border border-green-500/50 text-white text-[10px] font-bold px-2 py-1 rounded full flex items-center gap-1.5">
                       <span className="relative flex h-2 w-2">
@@ -78,9 +115,8 @@ export default function RentalSection({ data }) {
                     src={item.image}
                     alt={item.title}
                     fill
-                    className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                    className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 pointer-events-none"
                   />
-                  {/* Visual Hint Zoom (Icon Kaca Pembesar) */}
                   <div className="absolute bottom-3 right-3 bg-black/60 p-1.5 rounded text-white backdrop-blur-sm opacity-80 group-hover:opacity-100 transition-opacity">
                     <svg
                       className="w-4 h-4"
@@ -98,17 +134,11 @@ export default function RentalSection({ data }) {
                   </div>
                 </div>
 
-                {/* 2. CONTENT AREA */}
                 <div className="p-5 pt-2 flex flex-col gap-3 flex-1 relative">
-                  {/* Judul Unit */}
                   <h3 className="font-[Oswald] text-xl font-bold text-white uppercase leading-tight mt-1 line-clamp-2">
                     {item.title.replace('PAKET RENTAL ', '')}
                   </h3>
-
-                  {/* Garis Pemisah */}
                   <div className="h-px w-full bg-white/10"></div>
-
-                  {/* Benefit Checklist */}
                   <div className="flex flex-col gap-2">
                     {features.map((feat, idx) => (
                       <div key={idx} className="flex items-start gap-2">
@@ -133,25 +163,13 @@ export default function RentalSection({ data }) {
                       </div>
                     ))}
                   </div>
-
-                  {/* Spacer */}
                   <div className="mt-auto pt-4"></div>
-
-                  {/* 3. CTA BUTTON (WA) */}
                   <button
                     onClick={() => handleWA(item.title)}
                     className="w-full bg-[#FFD700] hover:bg-[#FFC107] text-black font-bold py-3.5 rounded uppercase text-xs tracking-wider transition-transform active:scale-95 flex items-center justify-center gap-2 shadow-[0_4px_10px_rgba(255,215,0,0.2)]"
                   >
-                    <svg
-                      className="w-4 h-4"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
-                    </svg>
                     Sewa Sekarang (WA)
                   </button>
-
                   <div className="text-center">
                     <span className="text-[9px] text-gray-500">
                       *S&K Berlaku | Kontrak Harian/Bulanan
@@ -164,14 +182,15 @@ export default function RentalSection({ data }) {
         </div>
       </div>
 
-      {/* --- MODAL IMAGE (POP UP) --- */}
       {modalItem && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-6 animate-in fade-in duration-200"
           onClick={() => setModalItem(null)}
         >
-          <div className="relative w-full max-w-md bg-[#121212] rounded border border-white/10 shadow-2xl flex flex-col max-h-[90vh]">
-            {/* Header Modal */}
+          <div
+            className="relative w-full max-w-md bg-[#121212] rounded border border-white/10 shadow-2xl flex flex-col max-h-[90vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="flex justify-between items-center p-4 border-b border-white/10">
               <h3 className="text-white font-[Oswald] text-lg uppercase">
                 Detail Unit
@@ -183,8 +202,8 @@ export default function RentalSection({ data }) {
                 <svg
                   className="w-6 h-6"
                   fill="none"
-                  viewBox="0 0 24 24"
                   stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
                   <path
                     strokeLinecap="round"
@@ -195,8 +214,6 @@ export default function RentalSection({ data }) {
                 </svg>
               </button>
             </div>
-
-            {/* Image Container */}
             <div className="relative w-full aspect-square bg-black">
               <Image
                 src={modalItem.image}
@@ -205,20 +222,11 @@ export default function RentalSection({ data }) {
                 className="object-contain"
               />
             </div>
-
-            {/* Footer Modal CTA */}
             <div className="p-4 border-t border-white/10">
               <button
                 onClick={() => handleWA(modalItem.title)}
-                className="w-full bg-[#FFD700] hover:bg-[#FFC107] text-black font-bold py-3 uppercase rounded shadow-lg flex items-center justify-center gap-2 transition-colors"
+                className="w-full bg-[#FFD700] hover:bg-[#FFC107] text-black font-bold py-3 uppercase rounded flex items-center justify-center gap-2 transition-colors"
               >
-                <svg
-                  className="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
-                </svg>
                 Tanya Unit Ini
               </button>
             </div>

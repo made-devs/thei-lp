@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 
-// --- UTILITY: Format Rupiah ---
 const formatRupiah = (number) => {
   return new Intl.NumberFormat('id-ID', {
     style: 'currency',
@@ -18,11 +17,15 @@ export default function PremiumSection({ data }) {
   const [activeTab, setActiveTab] = useState(data[0].category);
   const activeItems =
     data.find((cat) => cat.category === activeTab)?.items || [];
-
-  // State untuk Pop Up Image
   const [modalImage, setModalImage] = useState(null);
-
   const containerRef = useRef(null);
+
+  // Drag Refs
+  const tabScrollerRef = useRef(null);
+  const isDown = useRef(false);
+  const startX = useRef(0);
+  const scrollLeftPos = useRef(0);
+  const dragDist = useRef(0);
 
   useGSAP(
     () => {
@@ -35,7 +38,6 @@ export default function PremiumSection({ data }) {
     { dependencies: [activeTab], scope: containerRef }
   );
 
-  // Helper WhatsApp
   const handleWhatsApp = (title) => {
     const phone = '6285195886789';
     const message = `Halo Admin THEI, saya tertarik dengan paket Premium Service ${title}`;
@@ -43,9 +45,43 @@ export default function PremiumSection({ data }) {
     window.open(url, '_blank');
   };
 
+  // Drag Handlers
+  const onMouseDown = (e) => {
+    isDown.current = true;
+    dragDist.current = 0;
+    tabScrollerRef.current.classList.add('active-dragging');
+    startX.current = e.pageX - tabScrollerRef.current.offsetLeft;
+    scrollLeftPos.current = tabScrollerRef.current.scrollLeft;
+  };
+
+  const onMouseLeave = () => {
+    isDown.current = false;
+    tabScrollerRef.current?.classList.remove('active-dragging');
+  };
+
+  const onMouseUp = () => {
+    isDown.current = false;
+    tabScrollerRef.current?.classList.remove('active-dragging');
+  };
+
+  const onMouseMove = (e) => {
+    if (!isDown.current) return;
+    e.preventDefault();
+    const x = e.pageX - tabScrollerRef.current.offsetLeft;
+    const walk = (x - startX.current) * 2;
+    tabScrollerRef.current.scrollLeft = scrollLeftPos.current - walk;
+    dragDist.current = Math.abs(walk);
+  };
+
+  const handleTabClick = (category) => {
+    // Klik hanya jalan jika tidak sedang drag
+    if (dragDist.current < 5) {
+      setActiveTab(category);
+    }
+  };
+
   return (
     <section ref={containerRef} className="py-5 bg-[#0F0F0F]">
-      {/* HEADER SECTION (samain style kayak EconomisSection) */}
       <div className="px-6 mb-8">
         <div className="flex items-center gap-2 mb-2">
           <div className="h-1 w-8 bg-[#FFD700]"></div>
@@ -53,23 +89,27 @@ export default function PremiumSection({ data }) {
             Best Seller
           </span>
         </div>
-
         <h2 className="font-[Oswald] text-3xl font-bold text-white uppercase">
           Paket Premium
         </h2>
-
         <p className="text-sm text-gray-400 mt-1">
           Paket service terlengkap untuk performa unit maksimal.
         </p>
       </div>
 
-      {/* TAB NAVIGATION */}
       <div className="sticky top-16 z-30 bg-[#0F0F0F]/95 backdrop-blur py-2 border-b border-white/10 mb-6">
-        <div className="flex gap-3 overflow-x-auto px-6 pb-2 snap-x thei-scrollbar">
+        <div
+          ref={tabScrollerRef}
+          onMouseDown={onMouseDown}
+          onMouseLeave={onMouseLeave}
+          onMouseUp={onMouseUp}
+          onMouseMove={onMouseMove}
+          className="flex gap-3 overflow-x-auto px-6 pb-2 snap-x md:snap-none thei-scrollbar cursor-grab active:cursor-grabbing select-none"
+        >
           {data.map((cat, idx) => (
             <button
               key={idx}
-              onClick={() => setActiveTab(cat.category)}
+              onClick={() => handleTabClick(cat.category)}
               className={`snap-start whitespace-nowrap px-6 py-2.5 rounded text-sm font-bold transition-all border uppercase tracking-wider ${
                 activeTab === cat.category
                   ? 'bg-[#FFD700] text-black border-[#FFD700] shadow-[0_0_15px_rgba(255,215,0,0.4)]'
@@ -82,10 +122,8 @@ export default function PremiumSection({ data }) {
         </div>
       </div>
 
-      {/* CARD GRID */}
       <div className="px-6 space-y-8">
         {activeItems.map((item) => {
-          // --- LOGIC HITUNG-HITUNGAN ---
           const saving = item.priceNormal - item.pricePromo;
           const discountPercent = Math.round((saving / item.priceNormal) * 100);
 
@@ -94,48 +132,17 @@ export default function PremiumSection({ data }) {
               key={item.id}
               className="premium-card group relative bg-[#1A1A1A] rounded-xl border border-white/10 overflow-hidden hover:border-[#FFD700] transition-colors duration-300"
             >
-              {/* --- 1. IMAGE AREA (BADGE DIHAPUS DARI SINI) --- */}
               <div
-                className="relative aspect-square w-full bg-[#121212] overflow-hidden cursor-pointer group-image"
+                className="relative aspect-square w-full bg-[#121212] overflow-hidden cursor-pointer"
                 onClick={() => setModalImage(item.image)}
               >
-                {/* Visual Cue Zoom (Desktop Hover) */}
                 <div className="absolute inset-0 z-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-[2px]">
                   <div className="bg-white/20 backdrop-blur border border-white/50 px-4 py-2 rounded-full flex items-center gap-2">
-                    <svg
-                      className="w-4 h-4 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                      />
-                    </svg>
-                    <span className="text-white text-xs font-bold">
+                    <span className="text-white text-xs font-bold uppercase">
                       ZOOM GRAFIS
                     </span>
                   </div>
                 </div>
-                {/* Mobile Hint Zoom */}
-                <div className="absolute bottom-2 right-2 z-10 bg-black/60 rounded px-2 py-1 flex items-center gap-1 md:hidden">
-                  <svg
-                    className="w-3 h-3 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
-                </div>
-
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -144,7 +151,6 @@ export default function PremiumSection({ data }) {
                 />
               </div>
 
-              {/* --- 2. INFO CONTENT --- */}
               <div className="p-5 relative">
                 <div className="flex justify-between items-start mb-2">
                   <span className="text-gray-500 text-[10px] font-bold uppercase tracking-widest border border-gray-700 px-2 py-0.5 rounded">
@@ -159,23 +165,7 @@ export default function PremiumSection({ data }) {
                   {item.title.replace('THEI PREMIUM SERVICE ', '')}
                 </h3>
 
-                {/* Info Hemat Uang */}
                 <div className="mb-4 inline-flex items-center gap-2 bg-green-900/30 border border-green-500/30 px-3 py-1.5 rounded w-full">
-                  <div className="bg-green-500 rounded-full p-0.5">
-                    <svg
-                      className="w-3 h-3 text-black"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={3}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </div>
                   <span className="text-green-400 text-xs font-bold uppercase">
                     Hemat {formatRupiah(saving)}
                   </span>
@@ -207,9 +197,7 @@ export default function PremiumSection({ data }) {
 
                 <div className="h-px w-full bg-white/10 my-4"></div>
 
-                {/* --- 3. PRICING AREA & DISCOUNT BADGE --- */}
                 <div className="flex items-center justify-between">
-                  {/* Kiri: Harga */}
                   <div className="flex flex-col items-start gap-1">
                     <div className="text-gray-500 text-sm font-medium line-through decoration-red-500 decoration-2">
                       {formatRupiah(item.priceNormal)}
@@ -217,13 +205,8 @@ export default function PremiumSection({ data }) {
                     <div className="text-[#FFD700] font-[Oswald] text-3xl font-bold leading-none">
                       {formatRupiah(item.pricePromo)}
                     </div>
-                    {/* PPN Note di bawah */}
-                    <div className="text-[10px] text-gray-400 mt-1">
-                      *Harga sudah termasuk PPN
-                    </div>
                   </div>
 
-                  {/* Kanan: Badge Diskon Baru */}
                   {discountPercent > 0 && (
                     <div className="flex flex-col items-center justify-center bg-red-600 text-white px-3 py-2 rounded-lg shadow-lg">
                       <span className="font-[Oswald] text-2xl font-bold leading-none tracking-tighter">
@@ -238,7 +221,7 @@ export default function PremiumSection({ data }) {
 
                 <button
                   onClick={() => handleWhatsApp(item.title)}
-                  className="mt-5 w-full bg-[#FFD700] hover:bg-[#FFC107] text-black font-bold py-3 uppercase text-sm tracking-wider rounded-sm transition-transform active:scale-95 shadow-[0_0_20px_rgba(255,215,0,0.2)]"
+                  className="mt-5 w-full bg-[#FFD700] hover:bg-[#FFC107] text-black font-bold py-3 uppercase text-sm tracking-wider rounded-sm transition-transform active:scale-95"
                 >
                   Ambil Paket
                 </button>
@@ -248,36 +231,17 @@ export default function PremiumSection({ data }) {
         })}
       </div>
 
-      {/* --- MODAL IMAGE --- */}
       {modalImage && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 animate-in fade-in duration-200"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
           onClick={() => setModalImage(null)}
         >
           <div className="relative w-full max-w-lg aspect-square">
-            <button
-              onClick={() => setModalImage(null)}
-              className="absolute -top-12 right-0 text-white hover:text-[#FFD700]"
-            >
-              <svg
-                className="w-8 h-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
             <Image
               src={modalImage}
               alt="Detail Promo"
               fill
-              className="object-contain rounded-lg shadow-2xl bg-[#121212]"
+              className="object-contain rounded-lg"
             />
           </div>
         </div>
