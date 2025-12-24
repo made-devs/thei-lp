@@ -39,26 +39,34 @@ body {
 }
 
 .thei-scrollbar {
-  scrollbar-color: #ffd700 rgba(255, 255, 255, 0.12); /* Firefox */
-  scrollbar-width: thin; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge legacy */
+  scrollbar-width: none; /* Firefox */
 }
 
 /* Chrome / Edge / Safari */
 .thei-scrollbar::-webkit-scrollbar {
-  height: 10px; /* horizontal scrollbar */
+  height: 0px; /* Chrome/Safari/Edge */
 }
 
-.thei-scrollbar::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
+/* Show scrollbar when scrolling (and on hover for desktop) */
+.thei-scrollbar.is-scrolling {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #ffd700 rgba(255, 255, 255, 0.08); /* thumb | track (Firefox) */
+}
+
+.thei-scrollbar.is-scrolling::-webkit-scrollbar,
+.thei-scrollbar:hover::-webkit-scrollbar {
+  height: 8px;
+}
+
+.thei-scrollbar.is-scrolling::-webkit-scrollbar-thumb,
+.thei-scrollbar:hover::-webkit-scrollbar-thumb {
+  background: #ffd700; /* KUNING */
   border-radius: 999px;
 }
 
-.thei-scrollbar::-webkit-scrollbar-thumb {
-  background: #ffd700;
+.thei-scrollbar.is-scrolling::-webkit-scrollbar-track,
+.thei-scrollbar:hover::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 999px;
-  border: 2px solid rgba(18, 18, 18, 0.85); /* biar keliatan “inset” */
-}
-
-.thei-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #ffc107;
 }

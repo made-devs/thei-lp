@@ -31,7 +31,7 @@ export default function Hero() {
   return (
     <header
       ref={containerRef}
-      className="relative min-h-[800px] w-full overflow-hidden flex items-end pb-12"
+      className="relative min-h-200 w-full overflow-hidden flex items-end pb-12"
     >
       {/* Background Section */}
       <div className="absolute inset-0">
@@ -42,7 +42,7 @@ export default function Hero() {
           className="object-cover brightness-[0.4]"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-black/20"></div>
+        <div className="absolute inset-0 bg-linear-to-t from-thei-dark via-transparent to-black/20"></div>
       </div>
 
       <div className="relative z-10 w-full px-6">
@@ -61,7 +61,7 @@ export default function Hero() {
         {/* Authority Badge */}
         <div className="hero-content mb-4 flex justify-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#FFD700] bg-[#FFD700] px-4 py-2 md:px-5 md:py-2.5 shadow-[0_8px_22px_rgba(0,0,0,0.35)]">
-            <span className="text-[#121212] text-xs md:text-sm font-extrabold uppercase tracking-[0.14em] drop-shadow-[0_1px_0_rgba(255,255,255,0.35)]">
+            <span className="text-thei-dark text-xs md:text-sm font-extrabold uppercase tracking-[0.14em] drop-shadow-[0_1px_0_rgba(255,255,255,0.35)] max-[400px]:text-[10px] max-[400px]:tracking-widest">
               Pertama & Satu-Satunya di Indonesia
             </span>
           </div>
@@ -116,12 +116,12 @@ export default function Hero() {
         <div className="hero-content mt-10">
           <button
             onClick={handleWhatsApp}
-            className="group relative w-full sm:w-auto overflow-hidden rounded bg-[#FFD700] px-10 py-4 text-lg font-black text-[#121212] uppercase transition-all hover:bg-[#FFC107] active:scale-95"
+            className="group relative w-full sm:w-auto overflow-hidden rounded bg-[#FFD700] px-10 py-4 text-lg font-black text-thei-dark uppercase transition-all hover:bg-[#FFC107] active:scale-95 max-[400px]:px-6 max-[400px]:py-3 max-[400px]:text-base"
           >
-            <span className="relative z-10 flex items-center justify-center gap-3">
+            <span className="relative z-10 flex items-center justify-center gap-3 max-[400px]:gap-2">
               Klaim Promo Sekarang
               <svg
-                className="w-5 h-5 transition-transform group-hover:translate-x-1"
+                className="w-5 h-5 transition-transform group-hover:translate-x-1 max-[400px]:w-4 max-[400px]:h-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

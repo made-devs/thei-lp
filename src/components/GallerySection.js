@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function GallerySection() {
   const images = Array.from(
@@ -10,6 +10,21 @@ export default function GallerySection() {
   );
 
   const [activeSrc, setActiveSrc] = useState(null);
+
+  const scrollerRef = useRef(null);
+  const scrollTimerRef = useRef(null);
+
+  const handleScroll = () => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    el.classList.add('is-scrolling');
+
+    if (scrollTimerRef.current) window.clearTimeout(scrollTimerRef.current);
+    scrollTimerRef.current = window.setTimeout(() => {
+      el.classList.remove('is-scrolling');
+    }, 800);
+  };
 
   // ESC to close
   useEffect(() => {
@@ -30,8 +45,15 @@ export default function GallerySection() {
     };
   }, [activeSrc]);
 
+  // cleanup timer
+  useEffect(() => {
+    return () => {
+      if (scrollTimerRef.current) window.clearTimeout(scrollTimerRef.current);
+    };
+  }, []);
+
   return (
-    <section className="py-5 bg-[#121212] relative">
+    <section className="py-5 bg-thei-dark relative">
       {/* HEADER (samain style kayak section lain) */}
       <div className="px-6 mb-6">
         <div className="flex items-center gap-2 mb-2">
@@ -44,14 +66,14 @@ export default function GallerySection() {
         <h2 className="font-[Oswald] text-3xl font-bold text-white uppercase">
           Dokumentasi Project
         </h2>
-
-        <p className="text-sm text-gray-400 mt-1">
-          Contoh hasil kerja tim teknisi THEI di lapangan.
-        </p>
       </div>
 
       {/* CAROUSEL */}
-      <div className="px-6 overflow-x-auto thei-scrollbar">
+      <div
+        ref={scrollerRef}
+        onScroll={handleScroll}
+        className="px-6 overflow-x-auto thei-scrollbar"
+      >
         <div className="flex gap-3 snap-x snap-mandatory pb-2 pr-6">
           {images.map((src, idx) => (
             <figure
@@ -62,10 +84,10 @@ export default function GallerySection() {
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') setActiveSrc(src);
               }}
-              className="snap-center shrink-0 w-[260px] sm:w-[280px] rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm shadow-[0_10px_24px_rgba(0,0,0,0.35)] cursor-pointer select-none outline-none focus:ring-2 focus:ring-[#FFD700]/60"
+              className="snap-center shrink-0 w-65 sm:w-70 rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm shadow-[0_10px_24px_rgba(0,0,0,0.35)] cursor-pointer select-none outline-none focus:ring-2 focus:ring-[#FFD700]/60"
               aria-label={`Buka gallery ${idx + 1}`}
             >
-              <div className="relative aspect-[4/3] w-full">
+              <div className="relative aspect-4/3 w-full">
                 <Image
                   src={src}
                   alt={`Gallery ${idx + 1}`}
@@ -101,7 +123,7 @@ export default function GallerySection() {
           aria-modal="true"
         >
           <div
-            className="relative w-full max-w-[440px] rounded-2xl overflow-hidden border border-white/10 bg-[#0F0F0F] shadow-[0_18px_60px_rgba(0,0,0,0.65)]"
+            className="relative w-full max-w-110 rounded-2xl overflow-hidden border border-white/10 bg-[#0F0F0F] shadow-[0_18px_60px_rgba(0,0,0,0.65)]"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -113,7 +135,7 @@ export default function GallerySection() {
               Tutup
             </button>
 
-            <div className="relative aspect-[4/3] w-full">
+            <div className="relative aspect-4/3 w-full">
               <Image
                 src={activeSrc}
                 alt="Gallery Preview"

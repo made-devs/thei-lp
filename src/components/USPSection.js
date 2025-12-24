@@ -27,7 +27,7 @@ export default function USPSection() {
   }, [activeSrc]);
 
   return (
-    <section className="py-5 bg-[#121212] relative">
+    <section className="py-5 bg-thei-dark relative">
       {/* HEADER (konsisten) */}
       <div className="px-6 mb-6">
         <div className="flex items-center gap-2 mb-2">
@@ -58,10 +58,10 @@ export default function USPSection() {
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') setActiveSrc(src);
               }}
-              className="snap-center shrink-0 w-[220px] sm:w-[240px] rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm shadow-[0_10px_24px_rgba(0,0,0,0.35)] cursor-pointer select-none outline-none focus:ring-2 focus:ring-[#FFD700]/60"
+              className="snap-center shrink-0 w-55 sm:w-60 rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm shadow-[0_10px_24px_rgba(0,0,0,0.35)] cursor-pointer select-none outline-none focus:ring-2 focus:ring-[#FFD700]/60"
               aria-label={`Buka USP ${idx + 1}`}
             >
-              <div className="relative aspect-[4/5] w-full">
+              <div className="relative aspect-4/5 w-full">
                 <Image
                   src={src}
                   alt={`USP ${idx + 1}`}
@@ -97,7 +97,7 @@ export default function USPSection() {
           aria-modal="true"
         >
           <div
-            className="relative w-full max-w-[420px] rounded-2xl overflow-hidden border border-white/10 bg-[#0F0F0F] shadow-[0_18px_60px_rgba(0,0,0,0.65)]"
+            className="relative w-full max-w-105 rounded-2xl overflow-hidden border border-white/10 bg-[#0F0F0F] shadow-[0_18px_60px_rgba(0,0,0,0.65)]"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -109,7 +109,7 @@ export default function USPSection() {
               Tutup
             </button>
 
-            <div className="relative aspect-[4/5] w-full">
+            <div className="relative aspect-4/5 w-full">
               <Image
                 src={activeSrc}
                 alt="USP Preview"

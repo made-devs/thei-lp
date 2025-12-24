@@ -1,4 +1,5 @@
 import { Oswald } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 
 const oswald = Oswald({
@@ -35,7 +36,23 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#FFD700" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className={`${oswald.variable} antialiased`}>{children}</body>
+      <body className={`${oswald.variable} antialiased`}>
+        {children}
+
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17796140228"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-aw" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17796140228');
+          `}
+        </Script>
+      </body>
     </html>
   );
 }
