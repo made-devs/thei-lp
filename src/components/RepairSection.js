@@ -1,34 +1,34 @@
-'use client';
-import { useState } from 'react';
-import Image from 'next/image';
+"use client";
+import { useState } from "react";
+import Image from "next/image";
 
 // --- HELPER: Format Rupiah ---
 const formatRupiah = (number) => {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(number);
 };
 
 export default function RepairSection({ data }) {
-  const [type, setType] = useState('hemat'); // 'hemat' or 'super'
+  const [type, setType] = useState("hemat"); // 'hemat' or 'super'
   const [modalImage, setModalImage] = useState(null);
   const [modalItem, setModalItem] = useState(null);
 
   // Helper WhatsApp
   const handleWhatsApp = (title) => {
-    const phone = '6285195886789';
+    const phone = "6285195886789";
     const message = `Halo Admin THEI, saya tertarik dengan ${title}`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
 
   return (
     <section className="py-5 bg-[#0F0F0F] relative border-t border-white/5">
       {/* Background Glow Effect */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-[#FFD700] opacity-5 blur-[100px] rounded-full pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-50 h-50 bg-[#FFD700] opacity-5 blur-[100px] rounded-full pointer-events-none"></div>
 
       {/* HEADER (samain style kayak EconomisSection) */}
       <div className="px-6 mb-8">
@@ -44,28 +44,33 @@ export default function RepairSection({ data }) {
         </h2>
 
         <p className="text-sm text-gray-400 mt-1">
-          Penanganan cepat untuk kerusakan unit dengan harga kompetitif.
+          Pilih <b>Paket Repair Hemat</b> untuk solusi perbaikan cepat dan
+          efisien pada sistem utama, cocok jika Anda ingin unit segera kembali
+          berfungsi tanpa biaya berlebih. Untuk hasil lebih menyeluruh,{" "}
+          <b>Paket Repair Super</b> hadir dengan cakupan perbaikan lebih luas
+          dan detail, memastikan performa forklift dan alat berat Anda pulih
+          maksimal seperti baru.
         </p>
       </div>
 
       {/* --- TOGGLE SWITCH --- */}
       <div className="px-6 mb-6 flex items-center bg-black/40 border border-white/10 rounded p-1 w-full">
         <button
-          onClick={() => setType('hemat')}
+          onClick={() => setType("hemat")}
           className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider transition-all rounded ${
-            type === 'hemat'
-              ? 'bg-[#FFD700] text-black shadow-lg'
-              : 'text-gray-500 hover:text-white'
+            type === "hemat"
+              ? "bg-[#FFD700] text-black shadow-lg"
+              : "text-gray-500 hover:text-white"
           }`}
         >
           Paket Hemat
         </button>
         <button
-          onClick={() => setType('super')}
+          onClick={() => setType("super")}
           className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider transition-all rounded ${
-            type === 'super'
-              ? 'bg-[#FFD700] text-black shadow-lg'
-              : 'text-gray-500 hover:text-white'
+            type === "super"
+              ? "bg-[#FFD700] text-black shadow-lg"
+              : "text-gray-500 hover:text-white"
           }`}
         >
           Paket Super
@@ -77,12 +82,12 @@ export default function RepairSection({ data }) {
         {data[type].map((item, index) => {
           // 1. Clean Title
           const shortTitle = item.title
-            .replace('Paket Repair ', '')
-            .replace(' Hemat', '')
-            .replace(' Super', '');
+            .replace("Paket Repair ", "")
+            .replace(" Hemat", "")
+            .replace(" Super", "");
 
           // 2. Numbering (01, 02...)
-          const number = (index + 1).toString().padStart(2, '0');
+          const number = (index + 1).toString().padStart(2, "0");
 
           // 3. Logic Hitung Harga (Pastikan di data.js sudah ada priceNormal & pricePromo)
           // Default 0 jaga-jaga kalau data harga belum diinput
@@ -96,7 +101,7 @@ export default function RepairSection({ data }) {
             <div
               key={item.id}
               onClick={() => setModalItem(item)}
-              className="group relative flex w-full h-[150px] bg-[#1A1A1A] rounded overflow-hidden border border-white/10 hover:border-[#FFD700] transition-all cursor-pointer shadow-lg"
+              className="group relative flex w-full h-37.5 bg-[#1A1A1A] rounded overflow-hidden border border-white/10 hover:border-[#FFD700] transition-all cursor-pointer shadow-lg"
             >
               {/* === BAGIAN KIRI: IMAGE (45%) === */}
               <div className="relative w-[45%] h-full bg-black shrink-0">
@@ -125,11 +130,11 @@ export default function RepairSection({ data }) {
               </div>
 
               {/* === BAGIAN TENGAH: DIVIDER === */}
-              <div className="w-[12px] h-full bg-[#0F0F0F] relative flex flex-col justify-between items-center py-2 shrink-0 border-l border-white/5 border-r border-white/5">
+              <div className="w-3 h-full bg-[#0F0F0F] relative flex flex-col justify-between items-center py-2 shrink-0 border-l border-r border-white/5">
                 {[...Array(8)].map((_, i) => (
                   <div
                     key={i}
-                    className="w-[3px] h-[6px] bg-[#333] rounded-full"
+                    className="w-0.75 h-1.5 bg-[#333] rounded-full"
                   ></div>
                 ))}
               </div>
@@ -239,10 +244,10 @@ export default function RepairSection({ data }) {
       {/* --- MODAL IMAGE --- */}
       {modalItem && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-6 animate-in fade-in duration-200"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/95 backdrop-blur-md p-6 animate-in fade-in duration-200"
           onClick={() => setModalItem(null)}
         >
-          <div className="relative w-full max-w-md bg-[#121212] rounded border border-white/10 shadow-2xl flex flex-col max-h-[90vh]">
+          <div className="relative w-full max-w-md bg-thei-dark rounded border border-white/10 shadow-2xl flex flex-col max-h-[90vh]">
             <div className="flex justify-between items-center p-4 border-b border-white/10">
               <h3 className="text-white font-[Oswald] text-lg uppercase">
                 Detail Paket Repair

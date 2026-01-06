@@ -1,18 +1,20 @@
-'use client';
-import { useState, useRef } from 'react';
-import Image from 'next/image';
+"use client";
+import { useState, useRef } from "react";
+import Image from "next/image";
+import { contractData } from "../data/contractData";
 
 const formatRupiah = (number) => {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(number);
 };
 
-export default function ContractSection({ data }) {
+export default function ContractSection() {
   const [modalItem, setModalItem] = useState(null);
+  const data = contractData;
 
   // Drag Refs
   const scrollerRef = useRef(null);
@@ -22,10 +24,22 @@ export default function ContractSection({ data }) {
   const dragDistance = useRef(0);
 
   const handleWA = (title) => {
-    const message = `Halo THEI, saya tertarik untuk diskusi mengenai ${title}. Bisa dikirimkan proposal penawarannya?`;
+    let message = "";
+    if (title.includes("3 BULAN")) {
+      message = `Halo THEI, saya tertarik dengan Contract Service 3 Bulan Package. Mohon info lebih detail dan proposalnya. Terima kasih!`;
+    } else if (title.includes("6 BULAN")) {
+      message = `Halo THEI, saya tertarik dengan Contract Service 6 Bulan Package. Mohon info lebih detail dan proposalnya. Terima kasih!`;
+    } else if (title.includes("12 BULAN")) {
+      message = `Halo THEI, saya tertarik dengan Contract Service 12 Bulan Package. Mohon info lebih detail dan proposalnya. Terima kasih!`;
+    } else if (title.includes("MULTIPLE")) {
+      message = `Halo THEI, saya tertarik dengan Multiple Unit Discount untuk lebih dari 1 unit forklift. Mohon info lebih detail tentang diskon dan benefit yang tersedia. Terima kasih!`;
+    } else {
+      message = `Halo THEI, saya tertarik untuk diskusi mengenai ${title}. Bisa dikirimkan proposal penawarannya?`;
+    }
+
     window.open(
       `https://wa.me/6285195886789?text=${encodeURIComponent(message)}`,
-      '_blank'
+      "_blank"
     );
   };
 
@@ -33,19 +47,19 @@ export default function ContractSection({ data }) {
   const onMouseDown = (e) => {
     isDown.current = true;
     dragDistance.current = 0;
-    scrollerRef.current.classList.add('active-dragging');
+    scrollerRef.current.classList.add("active-dragging");
     startX.current = e.pageX - scrollerRef.current.offsetLeft;
     scrollLeftPos.current = scrollerRef.current.scrollLeft;
   };
 
   const onMouseLeave = () => {
     isDown.current = false;
-    scrollerRef.current?.classList.remove('active-dragging');
+    scrollerRef.current?.classList.remove("active-dragging");
   };
 
   const onMouseUp = () => {
     isDown.current = false;
-    scrollerRef.current?.classList.remove('active-dragging');
+    scrollerRef.current?.classList.remove("active-dragging");
   };
 
   const onMouseMove = (e) => {
@@ -64,9 +78,13 @@ export default function ContractSection({ data }) {
     }
   };
 
+  const getButtonText = (title) => {
+    return "Tanya Detail";
+  };
+
   return (
     <section className="py-5 bg-[#0F0F0F] relative border-t border-white/5">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-[#FFD700] opacity-5 blur-[100px] rounded-full pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-50 h-50 bg-[#FFD700] opacity-5 blur-[100px] rounded-full pointer-events-none"></div>
 
       <div className="px-6 mb-8 text-center">
         <span className="text-[#FFD700] text-xs font-bold tracking-[0.2em] uppercase mb-2 block">
@@ -76,8 +94,9 @@ export default function ContractSection({ data }) {
           Contract Service
         </h2>
         <p className="text-gray-400 text-xs mt-2 max-w-xs mx-auto">
-          Jaminan performa unit jangka panjang dengan biaya lebih hemat &
-          terencana.
+          Contract Service adalah layanan perawatan alat berat berbasis kontrak
+          waktu dan jam kerja, di mana unit diservis rutin dan terjadwal agar
+          kondisinya tetap terjaga dan siap digunakan.
         </p>
       </div>
 
@@ -90,24 +109,23 @@ export default function ContractSection({ data }) {
         className="flex gap-5 overflow-x-auto px-6 pb-10 thei-scrollbar snap-x md:snap-none items-stretch cursor-grab active:cursor-grabbing select-none"
       >
         {data.map((item) => {
-          const normal = item.priceNormal || 0;
-          const promo = item.pricePromo || 0;
+          const normal = item.price?.original || 0;
+          const promo = item.price?.discounted || 0;
           const saving = normal - promo;
           const discountPercent =
             normal > 0 ? Math.round((saving / normal) * 100) : 0;
-          const duration = item.title.match(/(\d+)\s*BULAN/i)?.[1] || 'PKG';
 
           return (
             <div
               key={item.id}
-              className="group relative w-[280px] shrink-0 snap-center flex flex-col bg-[#1A1A1A] rounded-xl overflow-hidden border border-[#FFD700]/20 hover:border-[#FFD700] transition-all shadow-lg hover:shadow-[0_0_30px_rgba(255,215,0,0.1)]"
+              className="group relative w-70 shrink-0 snap-center flex flex-col bg-[#1A1A1A] rounded-xl overflow-hidden border border-[#FFD700]/20 hover:border-[#FFD700] transition-all shadow-lg hover:shadow-[0_0_30px_rgba(255,215,0,0.1)]"
             >
               <div
                 className="relative aspect-square w-full bg-black cursor-pointer overflow-hidden"
                 onClick={() => handleCardClick(item)}
               >
                 <Image
-                  src={item.image}
+                  src={item.imageSrc}
                   alt={item.title}
                   fill
                   className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-transform duration-700 pointer-events-none"
@@ -131,67 +149,68 @@ export default function ContractSection({ data }) {
 
               <div className="p-5 pt-2 flex flex-col flex-1 relative">
                 <h3 className="font-[Oswald] text-lg font-bold text-white uppercase leading-tight mb-3">
-                  {duration} Bulan Package
+                  {item.title}
                 </h3>
 
                 <div className="text-gray-400 text-[10px] mb-4 font-medium border-b border-white/10 pb-3">
-                  {duration === '3' && 'Service 250 HM (Max 3x Kunjungan)'}
-                  {duration === '6' && 'Service 500 HM (Max 6x Kunjungan)'}
-                  {duration === '12' && 'Service 1000 HM (Max 12x Kunjungan)'}
+                  {item.subtitle}
                 </div>
 
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start gap-2 text-gray-300 text-[11px]">
-                    <span className="text-[#FFD700]">✓</span>
-                    <span>Promo Gratis Senilai 20 Juta</span>
-                  </li>
-                  <li className="flex items-start gap-2 text-gray-300 text-[11px]">
-                    <span className="text-[#FFD700]">✓</span>
-                    <span>
-                      {duration === '3' ? '20' : duration === '6' ? '20' : '34'}{' '}
-                      Titik Inspeksi Engine
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2 text-gray-300 text-[11px]">
-                    <span className="text-[#FFD700]">✓</span>
-                    <span>Laporan Digital Mingguan & Bulanan</span>
-                  </li>
+                <ul className="space-y-2 mb-6 max-h-20 overflow-y-auto">
+                  {item.benefits &&
+                    item.benefits.map((benefit, index) => (
+                      <li
+                        key={index}
+                        className="flex items-start gap-2 text-gray-300 text-[11px]"
+                      >
+                        <span className="text-[#FFD700]">✓</span>
+                        <span>{benefit}</span>
+                      </li>
+                    ))}
                 </ul>
 
-                <div className="mt-auto bg-[#121212] p-3 rounded border border-white/5 group-hover:border-[#FFD700]/30 transition-colors">
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="text-gray-500 text-[10px] line-through decoration-red-500">
-                      {formatRupiah(normal)}
-                    </span>
-                    {discountPercent > 0 && (
-                      <span className="text-red-500 text-[10px] font-bold bg-red-500/10 px-1.5 rounded">
-                        Save {discountPercent}%
+                {/* Khusus Multiple Unit Discount tampilkan note, bukan harga */}
+                {item.id === 4 ? (
+                  <div className="mt-auto bg-thei-dark p-3 rounded border border-white/5 text-[11px] text-yellow-400 font-semibold text-center">
+                    {item.note}
+                  </div>
+                ) : (
+                  <div className="mt-auto bg-thei-dark p-3 rounded border border-white/5 group-hover:border-[#FFD700]/30 transition-colors">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-gray-500 text-[10px] line-through decoration-red-500">
+                        {formatRupiah(item.price?.original || 0)}
                       </span>
-                    )}
+                      {item.price?.original > 0 &&
+                        item.price?.discounted > 0 && (
+                          <span className="text-red-500 text-[10px] font-bold bg-red-500/10 px-1.5 rounded">
+                            Save{" "}
+                            {Math.round(
+                              ((item.price.original - item.price.discounted) /
+                                item.price.original) *
+                                100
+                            )}
+                            %
+                          </span>
+                        )}
+                    </div>
+                    <div className="text-[#FFD700] font-[Oswald] text-2xl font-bold leading-none">
+                      {formatRupiah(item.price?.discounted || 0)}
+                    </div>
                   </div>
-                  <div className="text-[#FFD700] font-[Oswald] text-2xl font-bold leading-none">
-                    {formatRupiah(promo)}
-                  </div>
-                </div>
+                )}
 
                 <button
                   onClick={() => handleWA(item.title)}
                   className="w-full mt-3 bg-[#FFD700] text-black font-bold py-3 uppercase text-xs tracking-wider rounded transition-transform active:scale-95 shadow-lg hover:bg-[#FFC107] flex items-center justify-center gap-2"
                 >
-                  <span>Ajukan Kontrak</span>
                   <svg
-                    className="w-3 h-3"
-                    fill="none"
+                    className="w-4 h-4"
+                    fill="currentColor"
                     viewBox="0 0 24 24"
-                    stroke="currentColor"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
                   </svg>
+                  <span>{getButtonText(item.title)}</span>
                 </button>
               </div>
             </div>
@@ -201,11 +220,11 @@ export default function ContractSection({ data }) {
 
       {modalItem && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-6"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/95 backdrop-blur-md p-6"
           onClick={() => setModalItem(null)}
         >
           <div
-            className="relative w-full max-w-md bg-[#121212] rounded border border-white/10 shadow-2xl flex flex-col max-h-[90vh]"
+            className="relative w-full max-w-md bg-thei-dark rounded border border-white/10 shadow-2xl flex flex-col max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center p-4 border-b border-white/10">
@@ -233,7 +252,7 @@ export default function ContractSection({ data }) {
             </div>
             <div className="relative w-full aspect-square bg-black">
               <Image
-                src={modalItem.image}
+                src={modalItem.imageSrc}
                 alt="Detail Contract"
                 fill
                 className="object-contain"
@@ -244,7 +263,14 @@ export default function ContractSection({ data }) {
                 onClick={() => handleWA(modalItem.title)}
                 className="w-full bg-[#FFD700] hover:bg-[#FFC107] text-black font-bold py-3 uppercase rounded shadow-lg flex items-center justify-center gap-2 transition-colors"
               >
-                Konsultasi Kontrak Ini
+                <svg
+                  className="w-4 h-4"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                </svg>
+                <span>Konsultasi via WhatsApp</span>
               </button>
             </div>
           </div>

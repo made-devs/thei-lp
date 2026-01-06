@@ -1,20 +1,19 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { uspData } from "../data/uspData";
 
 export default function USPSection() {
-  const images = Array.from({ length: 10 }, (_, i) => `/usp/usp${i + 1}.webp`);
   const [activeSrc, setActiveSrc] = useState(null);
-
   const scrollerRef = useRef(null);
 
   // Tampilkan arrow hanya untuk device "desktop-like" (mouse + hover)
   const [showArrows, setShowArrows] = useState(false);
   useEffect(() => {
     const mq =
-      typeof window !== 'undefined'
-        ? window.matchMedia('(hover: hover) and (pointer: fine)')
+      typeof window !== "undefined"
+        ? window.matchMedia("(hover: hover) and (pointer: fine)")
         : null;
 
     if (!mq) return;
@@ -22,11 +21,11 @@ export default function USPSection() {
     const update = () => setShowArrows(Boolean(mq.matches));
     update();
 
-    if (mq.addEventListener) mq.addEventListener('change', update);
+    if (mq.addEventListener) mq.addEventListener("change", update);
     else mq.addListener(update);
 
     return () => {
-      if (mq.removeEventListener) mq.removeEventListener('change', update);
+      if (mq.removeEventListener) mq.removeEventListener("change", update);
       else mq.removeListener(update);
     };
   }, []);
@@ -37,39 +36,39 @@ export default function USPSection() {
 
     // geser ~1 card
     const amount = Math.max(240, Math.round(el.clientWidth * 0.65));
-    el.scrollBy({ left: dir * amount, behavior: 'smooth' });
+    el.scrollBy({ left: dir * amount, behavior: "smooth" });
 
     // munculin scrollbar sebentar (kalau kamu pakai is-scrolling)
-    el.classList.add('is-scrolling');
+    el.classList.add("is-scrolling");
     window.clearTimeout(el.__theiScrollTimer);
     el.__theiScrollTimer = window.setTimeout(() => {
-      el.classList.remove('is-scrolling');
+      el.classList.remove("is-scrolling");
     }, 800);
   };
 
   // ESC to close
   useEffect(() => {
     const onKeyDown = (e) => {
-      if (e.key === 'Escape') setActiveSrc(null);
+      if (e.key === "Escape") setActiveSrc(null);
     };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
   // lock scroll when modal open
   useEffect(() => {
     if (!activeSrc) return;
     const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = prev;
     };
   }, [activeSrc]);
 
   return (
-    <section className="py-5 bg-[#121212] relative">
-      {/* HEADER (konsisten) */}
-      <div className="px-6 mb-6">
+    <section className="py-10 bg-thei-dark relative">
+      {/* HEADER */}
+      <div className="px-6 mb-8">
         <div className="flex items-center gap-2 mb-2">
           <div className="h-1 w-8 bg-[#FFD700]"></div>
           <span className="text-[#FFD700] text-xs font-bold tracking-widest uppercase">
@@ -86,7 +85,7 @@ export default function USPSection() {
         </p>
       </div>
 
-      {/* USP Carousel (aspect 4:5) */}
+      {/* USP Carousel */}
       <div className="relative px-6">
         {/* Arrow (desktop) */}
         {showArrows && (
@@ -133,49 +132,58 @@ export default function USPSection() {
           </>
         )}
 
-        <div ref={scrollerRef} className="overflow-x-auto thei-scrollbar">
-          <div className="flex gap-3 snap-x snap-mandatory pb-2 pr-6">
-            {images.map((src, idx) => (
+        <div ref={scrollerRef} className="overflow-x-auto thei-scrollbar pb-4">
+          <div className="flex gap-4 snap-x snap-mandatory pr-6">
+            {/* Ubah map loop menggunakan uspData */}
+            {uspData.map((item, idx) => (
               <figure
-                key={src}
+                key={idx}
                 role="button"
                 tabIndex={0}
-                onClick={() => setActiveSrc(src)}
+                onClick={() => setActiveSrc(item.src)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') setActiveSrc(src);
+                  if (e.key === "Enter" || e.key === " ")
+                    setActiveSrc(item.src);
                 }}
-                className="snap-center shrink-0 w-55 sm:w-60 rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm shadow-[0_10px_24px_rgba(0,0,0,0.35)] cursor-pointer select-none outline-none focus:ring-2 focus:ring-[#FFD700]/60"
+                className="snap-center shrink-0 w-64 md:w-72 flex flex-col rounded-xl overflow-hidden border border-white/10 bg-[#1A1A1A] hover:bg-[#222] transition-colors cursor-pointer group min-h-102.5"
                 aria-label={`Buka USP ${idx + 1}`}
               >
-                <div className="relative aspect-4/5 w-full">
+                {/* Image Container */}
+                <div className="relative aspect-4/5 w-full bg-black/50 overflow-hidden">
                   <Image
-                    src={src}
+                    src={item.src}
                     alt={`USP ${idx + 1}`}
                     fill
-                    className="object-cover"
-                    sizes="(max-width: 480px) 220px, 240px"
-                    priority={idx < 2}
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 480px) 260px, 300px"
                   />
-                  <div className="absolute inset-0 ring-1 ring-inset ring-[#FFD700]/10" />
+                  {/* Overlay gradasi tipis biar gambar nyatu sama text bawah */}
+                  <div className="absolute inset-0 bg-linear-to-t from-[#1A1A1A] via-transparent to-transparent opacity-60" />
                 </div>
 
-                <figcaption className="px-4 py-3">
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-xs font-bold text-white uppercase">
-                      USP #{String(idx + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#FFD700]">
-                      THEI
-                    </span>
+                {/* --- SPACE TEXT DETAIL BARU DISINI --- */}
+                <div className="p-5 flex flex-col flex-1 border-t border-white/5">
+                  <h3 className="font-[Oswald] text-lg font-bold text-white uppercase leading-tight mb-2 group-hover:text-[#FFD700] transition-colors">
+                    {item.title}
+                  </h3>
+                  <div className="text-sm text-gray-400 leading-relaxed overflow-y-auto max-h-24 custom-scrollbar">
+                    {item.description}
                   </div>
-                </figcaption>
+                  {/* Label kecil di paling bawah */}
+                  <div className="mt-auto pt-4 flex items-center justify-between ">
+                    <span className="text-[10px] font-bold text-white/30 uppercase">
+                      USP #{String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span className="h-0.5 w-8 bg-[#FFD700]/30 rounded-full"></span>
+                  </div>
+                </div>
               </figure>
             ))}
           </div>
         </div>
       </div>
 
-      {/* MODAL */}
+      {/* MODAL (existing code sama persis) */}
       {activeSrc && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-6"
@@ -184,7 +192,7 @@ export default function USPSection() {
           aria-modal="true"
         >
           <div
-            className="relative w-full max-w-105 rounded-2xl overflow-hidden border border-white/10 bg-[#0F0F0F] shadow-[0_18px_60px_rgba(0,0,0,0.65)]"
+            className="relative w-full max-w-105 rounded-2xl overflow-hidden border border-white/10 bg-[#0F0F0F]"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -195,7 +203,6 @@ export default function USPSection() {
             >
               Tutup
             </button>
-
             <div className="relative aspect-4/5 w-full">
               <Image
                 src={activeSrc}
@@ -203,7 +210,6 @@ export default function USPSection() {
                 fill
                 className="object-contain bg-black"
                 sizes="(max-width: 480px) 92vw, 420px"
-                priority
               />
             </div>
           </div>

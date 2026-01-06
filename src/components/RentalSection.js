@@ -1,6 +1,6 @@
-'use client';
-import { useState, useRef } from 'react';
-import Image from 'next/image';
+"use client";
+import { useState, useRef } from "react";
+import Image from "next/image";
 
 export default function RentalSection({ data }) {
   const [modalItem, setModalItem] = useState(null);
@@ -16,7 +16,7 @@ export default function RentalSection({ data }) {
     const message = `Halo THEI, saya tertarik dengan Paket Rental unit ${unitName}. Boleh minta info harga dan ketersediaan?`;
     window.open(
       `https://wa.me/6285195886789?text=${encodeURIComponent(message)}`,
-      '_blank'
+      "_blank"
     );
   };
 
@@ -24,19 +24,19 @@ export default function RentalSection({ data }) {
   const onMouseDown = (e) => {
     isDown.current = true;
     dragDistance.current = 0;
-    scrollerRef.current.classList.add('active-dragging');
+    scrollerRef.current.classList.add("active-dragging");
     startX.current = e.pageX - scrollerRef.current.offsetLeft;
     scrollLeftPos.current = scrollerRef.current.scrollLeft;
   };
 
   const onMouseLeave = () => {
     isDown.current = false;
-    scrollerRef.current.classList.remove('active-dragging');
+    scrollerRef.current.classList.remove("active-dragging");
   };
 
   const onMouseUp = () => {
     isDown.current = false;
-    scrollerRef.current.classList.remove('active-dragging');
+    scrollerRef.current.classList.remove("active-dragging");
   };
 
   const onMouseMove = (e) => {
@@ -71,7 +71,10 @@ export default function RentalSection({ data }) {
             Sewa Unit Ready
           </h2>
           <p className="text-gray-400 text-sm mt-2 ">
-            Unit tahun muda, maintenance rutin, layanan mekanik 24 jam.
+            Paket Rental menawarkan solusi sewa forklift untuk operasional
+            harian, bulanan, hingga tahunan. Anda bisa langsung menggunakan unit
+            tanpa investasi pembelian, sehingga kebutuhan kerja terpenuhi dengan
+            lebih fleksibel dan efisien.
           </p>
         </div>
 
@@ -85,20 +88,20 @@ export default function RentalSection({ data }) {
         >
           {data.map((item) => {
             const features = item.benefits || [
-              'Unit Replacement Guarantee',
-              'Safety Kit (APAR, APD, Helm)',
-              'Layanan Mekanik 24 Jam',
-              'Free Mob & De-Mob (S&K)',
-              'Laporan Time Shift Harian',
+              "Unit Replacement Guarantee",
+              "Safety Kit (APAR, APD, Helm)",
+              "Layanan Mekanik 24 Jam",
+              "Free Mob & De-Mob (S&K)",
+              "Laporan Time Shift Harian",
             ];
 
             return (
               <div
                 key={item.id}
-                className="group relative w-[300px] shrink-0 snap-center bg-[#1A1A1A] rounded-xl overflow-hidden border border-white/10 hover:border-[#FFD700] transition-all shadow-lg flex flex-col"
+                className="group relative w-75 shrink-0 snap-center bg-[#1A1A1A] rounded-xl overflow-hidden border border-white/10 hover:border-[#FFD700] transition-all shadow-lg flex flex-col"
               >
                 <div
-                  className="relative aspect-square w-full bg-[#121212] cursor-pointer"
+                  className="relative aspect-square w-full bg-thei-dark cursor-pointer"
                   onClick={() => handleCardClick(item)}
                 >
                   <div className="absolute top-3 right-3 z-20 pointer-events-none">
@@ -136,13 +139,13 @@ export default function RentalSection({ data }) {
 
                 <div className="p-5 pt-2 flex flex-col gap-3 flex-1 relative">
                   <h3 className="font-[Oswald] text-xl font-bold text-white uppercase leading-tight mt-1 line-clamp-2">
-                    {item.title.replace('PAKET RENTAL ', '')}
+                    {item.title.replace("PAKET RENTAL ", "")}
                   </h3>
                   <div className="h-px w-full bg-white/10"></div>
                   <div className="flex flex-col gap-2">
                     {features.map((feat, idx) => (
                       <div key={idx} className="flex items-start gap-2">
-                        <div className="mt-0.5 min-w-[14px]">
+                        <div className="mt-0.5 min-w-3.5">
                           <svg
                             className="w-3.5 h-3.5 text-[#FFD700]"
                             fill="none"
@@ -184,11 +187,11 @@ export default function RentalSection({ data }) {
 
       {modalItem && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-6 animate-in fade-in duration-200"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/95 backdrop-blur-md p-6 animate-in fade-in duration-200"
           onClick={() => setModalItem(null)}
         >
           <div
-            className="relative w-full max-w-md bg-[#121212] rounded border border-white/10 shadow-2xl flex flex-col max-h-[90vh]"
+            className="relative w-full max-w-md bg-thei-dark rounded border border-white/10 shadow-2xl flex flex-col max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center p-4 border-b border-white/10">

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   premiumServices,
@@ -6,14 +6,15 @@ import {
   repairServices,
   rentalServices,
   contractServices,
-} from '../data/data';
+} from "../data/data";
 
 // Import Components
-import Hero from '../components/Hero';
-import USPSection from '../components/USPSection';
-import GallerySection from '../components/GallerySection';
-import FooterCTA from '../components/FooterCTA';
-import SectionsTabs from '../components/SectionsTabs';
+import Hero from "../components/Hero";
+import USPSection from "../components/USPSection";
+import GallerySection from "../components/GallerySection";
+import FooterCTA from "../components/FooterCTA";
+import SectionsTabs from "../components/SectionsTabs";
+import TopNavigation from "@/components/TopNavigation";
 
 export default function LandingPage() {
   return (
@@ -34,6 +35,7 @@ export default function LandingPage() {
           rentalServices={rentalServices}
           contractServices={contractServices}
         />
+        <TopNavigation />
 
         <FooterCTA />
       </div>

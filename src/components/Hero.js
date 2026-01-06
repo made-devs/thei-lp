@@ -1,19 +1,19 @@
-'use client';
-import Image from 'next/image';
-import { gsap } from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { useRef } from 'react';
+"use client";
+import Image from "next/image";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
 
 export default function Hero() {
   const containerRef = useRef(null);
 
   useGSAP(
     () => {
-      gsap.from('.hero-content', {
+      gsap.from(".hero-content", {
         y: 30,
         opacity: 0,
         duration: 0.8,
-        ease: 'power3.out',
+        ease: "power3.out",
         stagger: 0.15,
       });
     },
@@ -24,7 +24,7 @@ export default function Hero() {
     const message = `Halo THEI, saya ingin klaim Promo 100JT dan konsultasi service alat berat. Bisa dibantu?`;
     window.open(
       `https://wa.me/6285195886789?text=${encodeURIComponent(message)}`,
-      '_blank'
+      "_blank"
     );
   };
 
@@ -107,7 +107,7 @@ export default function Hero() {
               Corporate Bonus
             </p>
             <p className="font-bold text-white uppercase">
-              Bonus Service Mobil s/d 250JT
+              Dapatkan Bonus Service Mobil Perusahaan s/d 250 Juta Rupiah!
             </p>
           </div>
         </div>

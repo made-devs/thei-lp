@@ -1,12 +1,12 @@
-'use client';
-import { useState } from 'react';
-import Image from 'next/image';
+"use client";
+import { useState } from "react";
+import Image from "next/image";
 
 // --- HELPER: Format Rupiah ---
 const formatRupiah = (number) => {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(number);
@@ -18,14 +18,14 @@ export default function EconomisSection({ data }) {
 
   // Helper WhatsApp
   const handleWhatsApp = (title) => {
-    const phone = '6285195886789';
+    const phone = "6285195886789";
     const message = `Halo Admin THEI, saya tertarik dengan ${title}`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
 
   return (
-    <section className="py-5 bg-[#121212] relative">
+    <section className="py-5 bg-thei-dark relative">
       {/* HEADER */}
       <div className="px-6 mb-8">
         <div className="flex items-center gap-2 mb-2">
@@ -38,7 +38,9 @@ export default function EconomisSection({ data }) {
           Paket Economis
         </h2>
         <p className="text-sm text-gray-400 mt-1">
-          Solusi service berkualitas dengan harga miring.
+          Layanan perawatan forklift & alat berat, fokus pada service dasar dan
+          pemeriksaan sistem utama. Hemat biaya, tepat sasaran, dan tetap
+          optimal!
         </p>
       </div>
 
@@ -48,8 +50,8 @@ export default function EconomisSection({ data }) {
           {data.map((item) => {
             // 1. Clean Title
             const shortTitle = item.title
-              .replace('PAKET SERVICE ', '')
-              .replace(' HEMAT', '');
+              .replace("PAKET SERVICE ", "")
+              .replace(" HEMAT", "");
 
             // 2. Logic Hitung Harga (Default 0 jika data belum ada)
             const normal = item.priceNormal || 0;
@@ -153,10 +155,10 @@ export default function EconomisSection({ data }) {
       {/* === MODAL IMAGE === */}
       {modalItem && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-6 animate-in fade-in duration-200"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/95 backdrop-blur-md p-6 animate-in fade-in duration-200"
           onClick={() => setModalItem(null)}
         >
-          <div className="relative w-full max-w-md bg-[#121212] rounded border border-white/10 shadow-2xl flex flex-col max-h-[90vh]">
+          <div className="relative w-full max-w-md bg-thei-dark rounded border border-white/10 shadow-2xl flex flex-col max-h-[90vh]">
             <div className="flex justify-between items-center p-4 border-b border-white/10">
               <h3 className="text-white font-[Oswald] text-lg uppercase">
                 Detail Paket Hemat
