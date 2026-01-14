@@ -20,6 +20,10 @@ export default function PremiumSection({ data }) {
   const [modalImage, setModalImage] = useState(null);
   const containerRef = useRef(null);
 
+  // Arrow visibility states
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+
   // Drag Refs
   const tabScrollerRef = useRef(null);
   const isDown = useRef(false);
@@ -37,6 +41,27 @@ export default function PremiumSection({ data }) {
     },
     { dependencies: [activeTab], scope: containerRef }
   );
+
+  // Check scroll position for arrows
+  const checkScrollButtons = () => {
+    const el = tabScrollerRef.current;
+    if (!el) return;
+    setShowLeftArrow(el.scrollLeft > 2);
+    setShowRightArrow(
+      Math.ceil(el.scrollLeft + el.clientWidth) < el.scrollWidth - 2
+    );
+  };
+
+  // Scroll container function
+  const scrollContainer = (direction) => {
+    const el = tabScrollerRef.current;
+    if (!el) return;
+    const scrollAmount = el.clientWidth / 2;
+    el.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
 
   const handleWhatsApp = (title) => {
     const phone = "6285195886789";
@@ -74,10 +99,13 @@ export default function PremiumSection({ data }) {
   };
 
   const handleTabClick = (category) => {
-    // Klik hanya jalan jika tidak sedang drag
     if (dragDist.current < 5) {
       setActiveTab(category);
     }
+  };
+
+  const handleScroll = () => {
+    checkScrollButtons();
   };
 
   return (
@@ -92,7 +120,7 @@ export default function PremiumSection({ data }) {
         <h2 className="font-[Oswald] text-3xl font-bold text-white uppercase">
           Paket Premium
         </h2>
-        <p className="text-sm text-gray-400 mt-1">
+        <p className="text-sm text-gray-400 mt-2">
           Premium Service adalah layanan perawatan forklift & alat berat dengan
           cakupan paling lengkap dan menyeluruh. Dirancang untuk menjaga
           performa maksimal, memastikan seluruh sistem utama tetap prima, dan
@@ -100,28 +128,91 @@ export default function PremiumSection({ data }) {
         </p>
       </div>
 
-      <div className="sticky top-16 z-30 bg-[#0F0F0F]/95 backdrop-blur py-2 border-b border-white/10 mb-6">
+      <div className="sticky top-16 z-30 bg-[#0F0F0F]/95 backdrop-blur border-b border-white/10 mb-6 relative">
+        {/* Left Arrow */}
+        <div
+          className={`absolute left-0 top-0 bottom-0 z-40 flex items-center bg-gradient-to-r from-[#0F0F0F] to-transparent px-2 transition-opacity duration-300 ${
+            showLeftArrow
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
+          }`}
+        >
+          <button
+            onClick={() => scrollContainer("left")}
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FFD700] text-[#0F0F0F] shadow-lg hover:bg-white transition-colors"
+            aria-label="Scroll Left"
+          >
+            <svg
+              width="20"
+              height="20"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="3"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+        </div>
+
         <div
           ref={tabScrollerRef}
+          onScroll={handleScroll}
           onMouseDown={onMouseDown}
           onMouseLeave={onMouseLeave}
           onMouseUp={onMouseUp}
           onMouseMove={onMouseMove}
-          className="flex gap-3 overflow-x-auto px-6 pb-2 snap-x md:snap-none thei-scrollbar cursor-grab active:cursor-grabbing select-none"
+          className="flex gap-3 overflow-x-auto px-6 py-3 snap-x md:snap-none thei-scrollbar cursor-grab active:cursor-grabbing select-none scroll-smooth"
         >
-          {data.map((cat, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleTabClick(cat.category)}
-              className={`snap-start whitespace-nowrap px-6 py-2.5 rounded text-sm font-bold transition-all border uppercase tracking-wider ${
-                activeTab === cat.category
-                  ? "bg-[#FFD700] text-black border-[#FFD700] shadow-[0_0_15px_rgba(255,215,0,0.4)]"
-                  : "bg-[#1E1E1E] text-gray-400 border-white/10 hover:border-white/30"
-              }`}
+          <div className="inline-flex gap-3 px-6">
+            {data.map((cat, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleTabClick(cat.category)}
+                className={`snap-start whitespace-nowrap px-6 py-2.5 rounded text-sm font-bold transition-all border uppercase tracking-wider ${
+                  activeTab === cat.category
+                    ? "bg-[#FFD700] text-black border-[#FFD700] shadow-[0_0_15px_rgba(255,215,0,0.4)]"
+                    : "bg-[#1E1E1E] text-gray-400 border-white/10 hover:border-white/30"
+                }`}
+              >
+                {cat.category}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Right Arrow */}
+        <div
+          className={`absolute right-0 top-0 bottom-0 z-40 flex items-center justify-end bg-gradient-to-l from-[#0F0F0F] to-transparent px-2 transition-opacity duration-300 ${
+            showRightArrow
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
+          }`}
+        >
+          <button
+            onClick={() => scrollContainer("right")}
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FFD700] text-[#0F0F0F] shadow-lg hover:bg-white transition-colors"
+            aria-label="Scroll Right"
+          >
+            <svg
+              width="20"
+              height="20"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="3"
             >
-              {cat.category}
-            </button>
-          ))}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
         </div>
       </div>
 
